@@ -2,259 +2,512 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Rajdhani:wght@500;600;700&display=swap">
 
 <style>
-  /* ---- theme tokens mirrored from themes/deus-ex.yaml ---- */
+  /* ============================================================
+     Deus Ex — component kit  ·  mirrors themes/deus-ex.yaml
+     black + matte gold · angular HUD frames · tracked type
+     ============================================================ */
   :root{
-    --cyan-color:#D4A93A;
-    --red-color:#C79238;
-    --dark-cyan-color:#3A2E14;
-    --dark-red-color:#332711;
-    --orange-color:#FFA500;
+    /* palette */
     --brass-lit:#EAD196;
-    --brass:#C79238;
+    --brass:#C79238;          /* --red-color  in HA */
     --brass-deep:#6f4f22;
+    --gold:#D4A93A;           /* --cyan-color in HA — active / glow */
+    --gold-hot:#F2C14E;
     --value:#F2E4C4;
     --label:#9A7B44;
-    --primary-font-family:'Rajdhani','Roboto',sans-serif;
-    --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,monospace;
+    --alert:#C24E2C;          /* semantic only, never the accent */
 
-    /* lab shell — picked warm-biased neutrals, not default greys */
-    --ground:#0a0906;
-    --panel:#141009;
-    --panel-line:#2a2114;
-    --shell-text:#cfc3a6;
-    --shell-dim:#7d7358;
+    --wood-1:#1a140b;
+    --wood-2:#130d07;
+    --wood-3:#0b0805;
+    --ground:#090705;
+    --panel:#120d08;
+    --line:#2a2013;
+
+    --f-display:'Chakra Petch','Rajdhani',system-ui,sans-serif;
+    --f-mono:'JetBrains Mono',ui-monospace,SFMono-Regular,monospace;
+
+    --shell-text:#cdc1a4;
+    --shell-dim:#7c7358;
   }
 
   *{box-sizing:border-box}
   html,body{margin:0}
   body{
-    background:var(--ground);
-    color:var(--shell-text);
-    font-family:var(--primary-font-family);
-    -webkit-font-smoothing:antialiased;
-    line-height:1.45;
+    background:var(--ground);color:var(--shell-text);
+    font-family:var(--f-display);-webkit-font-smoothing:antialiased;line-height:1.45;
   }
+  @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 
+  /* ---------- shell ---------- */
   header{
-    display:flex;flex-wrap:wrap;align-items:baseline;gap:.5rem 1.25rem;
-    padding:1.4rem clamp(1rem,4vw,2.5rem) 1rem;
-    border-bottom:1px solid var(--panel-line);
+    position:sticky;top:0;z-index:20;
+    display:flex;flex-wrap:wrap;align-items:baseline;gap:.4rem 1.25rem;
+    padding:1.25rem clamp(1rem,4vw,2.5rem) 1.1rem;
+    background:linear-gradient(180deg,var(--ground) 70%,transparent);
+    border-bottom:1px solid var(--line);
   }
   header h1{
-    margin:0;font-weight:700;font-size:1.35rem;letter-spacing:.14em;
-    text-transform:uppercase;color:var(--value);
+    margin:0;font-weight:700;font-size:1.2rem;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--value);
   }
-  header .sub{
-    font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;
-    color:var(--shell-dim);
-  }
+  header h1 b{color:var(--gold);font-weight:700}
+  header .sub{font-family:var(--f-mono);font-size:.7rem;letter-spacing:.05em;color:var(--shell-dim)}
   header .sub a{color:var(--brass);text-decoration:none}
   header .sub a:hover{text-decoration:underline}
-
-  .toolbar{
-    display:flex;gap:.4rem;margin-left:auto;
-  }
+  .toolbar{display:flex;gap:.4rem;margin-left:auto}
   .toolbar button{
-    font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;
-    padding:.5rem .9rem;cursor:pointer;
-    background:transparent;color:var(--label);
-    border:1px solid var(--panel-line);border-radius:2px;
-    transition:color .15s,border-color .15s,background .15s;
+    font-family:var(--f-mono);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;
+    padding:.5rem .9rem;cursor:pointer;background:transparent;color:var(--label);
+    border:1px solid var(--line);border-radius:2px;transition:color .15s,border-color .15s,background .15s;
   }
   .toolbar button:hover{color:var(--brass)}
-  .toolbar button[aria-pressed="true"]{
-    color:#151009;background:var(--brass);border-color:var(--brass);font-weight:700;
-  }
-  .toolbar button:focus-visible{outline:2px solid var(--cyan-color);outline-offset:2px}
+  .toolbar button[aria-pressed="true"]{color:#151009;background:var(--brass);border-color:var(--brass);font-weight:700}
+  .toolbar button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 
-  main{
-    display:grid;gap:1px;background:var(--panel-line);
-    grid-template-columns:1fr;
-  }
-  @media(min-width:960px){ main{grid-template-columns:1fr 1fr} }
+  main{padding:clamp(1rem,4vw,2.5rem);max-width:1180px;margin:0 auto;display:flex;flex-direction:column;gap:2.75rem}
 
-  .pane{background:var(--ground);padding:clamp(1rem,3.5vw,2.25rem)}
-  .pane h2{
-    margin:0 0 1.25rem;font-family:var(--mono);font-weight:500;
-    font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--shell-dim);
+  section.kit > h2{
+    display:flex;align-items:center;gap:.75rem;margin:0 0 1.1rem;
+    font-family:var(--f-mono);font-weight:500;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--shell-dim);
   }
+  section.kit > h2::before{content:"";width:16px;height:1px;background:var(--brass);flex:none}
+  section.kit > h2 .n{color:var(--brass);font-variant-numeric:tabular-nums}
 
-  /* the live preview sits on the real theme background */
+  .note{
+    margin:.85rem 0 0;font-family:var(--f-mono);font-size:.66rem;line-height:1.75;letter-spacing:.02em;
+    color:var(--shell-dim);
+  }
+  .note b{color:var(--label);font-weight:500}
+  .note .theme{color:var(--gold)}
+  .note .card{color:var(--brass-lit)}
+
+  /* lacquer stage — the theme background lives here */
   .stage{
-    background:center/cover no-repeat
+    background:
+      linear-gradient(0deg,rgba(9,7,5,.55),rgba(9,7,5,.55)),
+      center/cover no-repeat
       url('https://raw.githubusercontent.com/Aamoree99/ha-deus-ex-theme/main/assets/background.jpg'),
       #0d0906;
-    padding:1.5rem;border:1px solid var(--panel-line);border-radius:3px;
-    display:flex;flex-direction:column;gap:1.15rem;
+    padding:1.6rem;border:1px solid var(--line);border-radius:3px;
   }
+  .stage.grid{display:grid;gap:1.1rem;grid-template-columns:repeat(auto-fit,minmax(210px,1fr))}
+  .stage.rowwrap{display:flex;flex-wrap:wrap;gap:1.1rem;align-items:flex-start}
 
-  .caption{
-    margin-top:1rem;font-family:var(--mono);font-size:.68rem;line-height:1.7;
-    letter-spacing:.03em;color:var(--shell-dim);
-  }
-  .caption b{color:var(--label);font-weight:500}
-
-  .ref img{width:100%;height:auto;display:block;border:1px solid var(--panel-line);border-radius:3px}
-
-  /* =========================================================
-     CARD  —  "лакированное дерево / латунный кант / заклёпка"
-     this block is the candidate card-mod-card, DOM-adapted
-     ========================================================= */
-  .dx-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1rem}
-
-  .dx-card{
-    position:relative;
-    padding:.9rem 1rem 1rem;
-    font-family:var(--primary-font-family);
-    border-radius:2px;
-    /* lacquered dark wood: faint horizontal grain + top sheen + body gradient */
+  /* ============================================================
+     THE FRAME — candidate card-mod-card
+     lacquered wood · brass кант · rivet · HUD corner brackets
+     ============================================================ */
+  .dx{
+    position:relative;padding:.9rem 1rem 1rem;font-family:var(--f-display);border-radius:2px;
     background:
       repeating-linear-gradient(178deg,
-        rgba(255,224,180,.016) 0 3px, rgba(0,0,0,0) 3px 11px,
-        rgba(0,0,0,.035) 11px 13px, rgba(0,0,0,0) 13px 26px),
-      radial-gradient(140% 95% at 24% -18%, rgba(255,214,150,.075), rgba(255,214,150,0) 58%),
+        rgba(255,224,180,.015) 0 3px,rgba(0,0,0,0) 3px 11px,
+        rgba(0,0,0,.03) 11px 13px,rgba(0,0,0,0) 13px 26px),
+      radial-gradient(150% 100% at 22% -20%,rgba(255,214,150,.07),rgba(255,214,150,0) 58%),
       linear-gradient(180deg,#1a140b 0%,#130d07 48%,#0c0805 100%);
     box-shadow:
       0 1px 0 rgba(255,228,175,.06) inset,
-      0 -16px 26px rgba(0,0,0,.32) inset,
-      0 7px 16px rgba(0,0,0,.55),
+      0 -16px 26px rgba(0,0,0,.3) inset,
+      0 7px 16px rgba(0,0,0,.5),
       0 1px 2px rgba(0,0,0,.6);
-    /* notch top-left, chamfer bottom-right — matches the artifact */
     clip-path:polygon(0 11px,11px 0,100% 0,100% calc(100% - 20px),calc(100% - 20px) 100%,0 100%);
-    transition:box-shadow .18s ease,transform .18s ease,background .18s ease;
+    transition:box-shadow .18s ease,transform .18s ease;
   }
-  /* brass hairline кант, follows the clip-path incl. the cut corners */
-  .dx-card::before{
+  .dx::before{ /* brass hairline follows the cut */
     content:"";position:absolute;inset:0;padding:1px;border-radius:2px;
     clip-path:polygon(0 11px,11px 0,100% 0,100% calc(100% - 20px),calc(100% - 20px) 100%,0 100%);
     background:linear-gradient(138deg,var(--brass-lit) 0%,var(--brass) 34%,var(--brass-deep) 78%,#402d14 100%);
     -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
-    -webkit-mask-composite:xor;mask-composite:exclude;
-    pointer-events:none;
+    -webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;
   }
-  /* заклёпка — domed brass stud on the top-left notch */
-  .dx-card::after{
+  .dx::after{ /* заклёпка on the notch */
     content:"";position:absolute;top:5px;left:5px;width:7px;height:7px;border-radius:50%;
     background:radial-gradient(circle at 34% 30%,#F8E6B4 0%,#CE9E46 46%,#835c2c 78%,#4a361c 100%);
-    box-shadow:0 1px 1px rgba(0,0,0,.65),0 0 0 1px rgba(0,0,0,.4);
-    pointer-events:none;
+    box-shadow:0 1px 1px rgba(0,0,0,.65),0 0 0 1px rgba(0,0,0,.4);pointer-events:none;
   }
-  .dx-card:hover{
+  .dx:hover{
     transform:translateY(-1px);
     box-shadow:
-      0 1px 0 rgba(255,228,175,.1) inset,
-      0 -16px 26px rgba(0,0,0,.3) inset,
-      0 12px 24px rgba(0,0,0,.6),
-      0 0 0 1px rgba(234,209,150,.14);
+      0 1px 0 rgba(255,228,175,.1) inset,0 -16px 26px rgba(0,0,0,.28) inset,
+      0 12px 24px rgba(0,0,0,.55),0 0 0 1px rgba(234,209,150,.16);
+  }
+  /* HUD bracket — bottom-left, drawn with a conic-free double border */
+  .dx > .bracket{
+    position:absolute;left:6px;bottom:6px;width:12px;height:12px;
+    border-left:1px solid var(--gold);border-bottom:1px solid var(--gold);opacity:.55;pointer-events:none;
   }
 
-  .dx-label{
-    font-family:var(--mono);font-weight:500;font-size:.62rem;
-    letter-spacing:.18em;text-transform:uppercase;color:var(--label);
+  /* ---- text system: eyebrow / value / footer ---- */
+  .dx .eyebrow{font-family:var(--f-mono);font-weight:500;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--label)}
+  .dx .val{font-weight:700;font-size:2rem;line-height:1.05;letter-spacing:.01em;color:var(--value);margin:.32rem 0 .68rem;font-variant-numeric:tabular-nums}
+  .dx .val.sm{font-size:1.4rem}
+  .dx .foot{
+    display:flex;align-items:center;gap:.45rem;padding-top:.5rem;border-top:1px solid rgba(199,146,56,.16);
+    font-family:var(--f-mono);font-size:.62rem;letter-spacing:.02em;color:var(--label);
   }
-  .dx-value{
-    font-weight:700;font-size:2.05rem;line-height:1.05;letter-spacing:.01em;
-    color:var(--value);margin:.35rem 0 .7rem;font-variant-numeric:tabular-nums;
-  }
-  .dx-foot{
-    display:flex;align-items:center;gap:.45rem;
-    padding-top:.55rem;border-top:1px solid rgba(199,146,56,.16);
-    font-family:var(--mono);font-size:.64rem;letter-spacing:.02em;color:var(--label);
-  }
-  .dx-foot .dot{width:6px;height:6px;border-radius:50%;background:var(--cyan-color);
-    box-shadow:0 0 6px rgba(212,169,58,.7);flex:none}
-  .dx-foot .meta{margin-left:auto;color:var(--shell-dim)}
+  .dx .foot .dot{width:6px;height:6px;border-radius:50%;background:var(--gold);box-shadow:0 0 6px rgba(212,169,58,.7);flex:none}
+  .dx .foot .dot.off{background:#4a3a1c;box-shadow:none}
+  .dx .foot .meta{margin-left:auto;color:var(--shell-dim)}
 
-  /* ---- the OLD card-mod, for A/B ---- */
-  [data-variant="current"] .dx-card{
-    background:#140C15;
-    box-shadow:none;
-    clip-path:polygon(0% 0%,26px 0%,34px 8px,100% 8px,100% 100%,14px 100%,0% calc(100% - 14px));
-  }
-  [data-variant="current"] .dx-card::before{
-    background:linear-gradient(135deg,var(--red-color) 0%,var(--dark-red-color) 42%,var(--dark-red-color) 100%);
-    clip-path:polygon(0% 0%,26px 0%,34px 8px,100% 8px,100% 100%,14px 100%,0% calc(100% - 14px));
-  }
-  [data-variant="current"] .dx-card::after{
-    top:8px;left:26px;width:5px;height:5px;background:var(--red-color);
-    box-shadow:0 0 0 2px #140C15,0 0 0 3px var(--dark-red-color);
-  }
-  [data-variant="current"] .dx-card:hover{transform:none}
-  [data-variant="current"] .dx-value{font-weight:600;color:var(--red-color)}
-  [data-variant="current"] .dx-label{letter-spacing:.1em}
+  /* ============================================================
+     1 · ARTIFACT CARD  (markdown / button-card template)
+     ============================================================ */
+  .artifact-head{margin-bottom:1rem}
+  .artifact-head .t{font-family:var(--f-display);font-weight:700;font-size:1rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
+  .artifact-head .s{font-family:var(--f-mono);font-size:.62rem;letter-spacing:.08em;color:var(--shell-dim);margin-left:.6rem}
 
-  @media(prefers-reduced-motion:reduce){*{transition:none!important}}
+  /* ============================================================
+     2 · TILE  — native `tile` restyle via card-mod
+     ============================================================ */
+  .tile{display:flex;align-items:center;gap:.8rem;padding:.85rem .95rem}
+  .tile .ic{
+    width:38px;height:38px;flex:none;display:grid;place-items:center;border-radius:2px;
+    background:linear-gradient(180deg,#241a0d,#160f07);border:1px solid var(--brass-deep);color:var(--gold);
+    clip-path:polygon(0 5px,5px 0,100% 0,100% calc(100% - 7px),calc(100% - 7px) 100%,0 100%);
+  }
+  .tile .ic svg{width:20px;height:20px}
+  .tile .tx .p{font-weight:600;font-size:.92rem;color:var(--value);letter-spacing:.02em}
+  .tile .tx .q{font-family:var(--f-mono);font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:var(--label);margin-top:.15rem}
+  .tile.active .ic{background:linear-gradient(180deg,#4a3813,#2c2009);border-color:var(--gold);box-shadow:0 0 10px rgba(212,169,58,.35)}
+
+  /* ============================================================
+     3 · BUTTON  — HUD action
+     ============================================================ */
+  .btn{
+    font-family:var(--f-mono);font-weight:700;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--value);padding:.75rem 1.15rem;cursor:pointer;position:relative;
+    background:linear-gradient(180deg,#241a0d,#150e07);border:1px solid var(--brass);
+    clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));
+    transition:background .15s,color .15s,box-shadow .15s;
+  }
+  .btn:hover{background:linear-gradient(180deg,#3a2b12,#20180a);box-shadow:0 0 14px rgba(212,169,58,.3)}
+  .btn:active{background:var(--gold);color:#160f04}
+  .btn.primary{background:linear-gradient(180deg,#e6bd5e,#c79238);color:#160f04;border-color:var(--brass-lit)}
+  .btn.primary:hover{box-shadow:0 0 18px rgba(242,193,78,.5)}
+  .btn:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+
+  /* ============================================================
+     4 · TOGGLE  — switch row
+     ============================================================ */
+  .sw{position:relative;width:44px;height:22px;flex:none;cursor:pointer;
+    background:#160f07;border:1px solid var(--brass-deep);border-radius:1px;transition:border-color .15s,background .15s}
+  .sw i{position:absolute;top:2px;left:2px;width:16px;height:16px;background:#5a4522;
+    clip-path:polygon(0 0,100% 0,100% calc(100% - 4px),calc(100% - 4px) 100%,0 100%);transition:left .16s ease,background .16s}
+  .sw.on{background:#2c2009;border-color:var(--gold)}
+  .sw.on i{left:24px;background:var(--gold);box-shadow:0 0 8px rgba(212,169,58,.6)}
+  .togglerow{display:flex;align-items:center;gap:.9rem;padding:.75rem .95rem}
+  .togglerow .tx{flex:1}
+  .togglerow .p{font-weight:600;color:var(--value)}
+  .togglerow .q{font-family:var(--f-mono);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--label);margin-top:.12rem}
+
+  /* ============================================================
+     5 · SLIDER  — brightness
+     ============================================================ */
+  .slider{padding:.9rem .95rem}
+  .slider .lbl{display:flex;justify-content:space-between;font-family:var(--f-mono);font-size:.62rem;
+    letter-spacing:.1em;text-transform:uppercase;color:var(--label);margin-bottom:.55rem}
+  .slider .lbl b{color:var(--value);font-weight:700}
+  .track{position:relative;height:14px;background:#160f07;border:1px solid var(--brass-deep);
+    clip-path:polygon(0 0,100% 0,100% calc(100% - 4px),calc(100% - 4px) 100%,0 100%)}
+  .track .fill{position:absolute;inset:1px;width:62%;background:linear-gradient(90deg,#7c5a26,var(--gold));
+    box-shadow:0 0 10px rgba(212,169,58,.4)}
+  .track .fill::after{content:"";position:absolute;right:-1px;top:-4px;bottom:-4px;width:2px;background:var(--gold-hot)}
+
+  /* ============================================================
+     6 · GRAPH  — mini-graph-card treatment
+     ============================================================ */
+  .graph{padding:.9rem 1rem 1rem}
+  .graph .head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.5rem}
+  .graph .head .p{font-family:var(--f-mono);font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--label)}
+  .graph .head .v{font-weight:700;font-size:1.35rem;color:var(--value);font-variant-numeric:tabular-nums}
+  .graph svg{display:block;width:100%;height:74px;overflow:visible}
+  .graph .gl{stroke:rgba(199,146,56,.14);stroke-width:1}
+  .graph .ln{fill:none;stroke:var(--gold);stroke-width:2;filter:drop-shadow(0 0 4px rgba(212,169,58,.55))}
+  .graph .ar{fill:url(#dxfill)}
+  .graph .pt{fill:var(--gold-hot);stroke:#160f04;stroke-width:1.5}
+  .graph .ax{font-family:var(--f-mono);font-size:8px;letter-spacing:.08em;fill:var(--shell-dim)}
+
+  /* ============================================================
+     7 · THERMOSTAT
+     ============================================================ */
+  .thermo{padding:1rem;display:flex;gap:1.1rem;align-items:center}
+  .dial{width:104px;height:104px;flex:none;position:relative;display:grid;place-items:center;border-radius:50%;
+    background:conic-gradient(var(--gold) 0 62%,#2a2013 62% 100%);
+    -webkit-mask:radial-gradient(circle,transparent 40px,#000 41px);mask:radial-gradient(circle,transparent 40px,#000 41px)}
+  .dial + .di{position:relative}
+  .thermo .di .set{font-weight:700;font-size:1.8rem;color:var(--value);font-variant-numeric:tabular-nums}
+  .thermo .di .cur{font-family:var(--f-mono);font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:var(--label);margin-top:.2rem}
+  .thermo .di .mode{margin-top:.5rem;display:inline-block;font-family:var(--f-mono);font-size:.58rem;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--gold);border:1px solid var(--brass-deep);padding:.2rem .5rem}
+
+  /* ============================================================
+     8 · SIDEBAR  item
+     ============================================================ */
+  .rail{background:var(--wood-2);border:1px solid var(--line);padding:.5rem;max-width:230px}
+  .nav{display:flex;align-items:center;gap:.7rem;padding:.6rem .7rem;position:relative;cursor:pointer;
+    color:var(--brass);font-weight:600;letter-spacing:.04em;text-transform:uppercase;font-size:.8rem;
+    clip-path:polygon(0 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%);transition:color .12s,background .12s}
+  .nav svg{width:18px;height:18px;flex:none}
+  .nav:hover{color:var(--gold)}
+  .nav.sel{background:#2c2009;color:var(--gold-hot)}
+  .nav.sel::before{content:"";position:absolute;left:0;top:3px;bottom:3px;width:2px;background:var(--gold)}
+
+  /* ============================================================
+     9 · BADGE / CHIP
+     ============================================================ */
+  .badge{display:inline-flex;align-items:center;gap:.4rem;font-family:var(--f-mono);font-size:.62rem;
+    letter-spacing:.12em;text-transform:uppercase;color:var(--value);padding:.4rem .7rem;
+    background:linear-gradient(180deg,#221909,#140d07);border:1px solid var(--brass-deep);
+    clip-path:polygon(0 0,100% 0,100% calc(100% - 6px),calc(100% - 6px) 100%,0 100%)}
+  .badge .d{width:5px;height:5px;border-radius:50%;background:var(--gold);box-shadow:0 0 6px var(--gold)}
+  .badge.alert{border-color:var(--alert);color:#e9b9a8}
+  .badge.alert .d{background:var(--alert);box-shadow:0 0 6px var(--alert)}
+
+  /* ============================================================
+     10 · HEADER BAR  (app-header)
+     ============================================================ */
+  .apphead{display:flex;align-items:center;gap:1rem;padding:.7rem 1rem;background:linear-gradient(180deg,#140d07,#0d0906);
+    border-bottom:1px solid var(--brass-deep)}
+  .apphead .title{font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);font-size:.95rem}
+  .apphead .tabs{display:flex;gap:.2rem;margin-left:auto}
+  .apphead .tab{font-family:var(--f-mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--label);
+    padding:.4rem .7rem;border-bottom:2px solid transparent}
+  .apphead .tab.sel{color:var(--value);border-color:var(--gold)}
+
+  /* ============================================================
+     11 · MORE-INFO dialog
+     ============================================================ */
+  .dialog{max-width:340px;padding:0;overflow:hidden}
+  .dialog .bar{display:flex;align-items:center;gap:.6rem;padding:.8rem 1rem;background:linear-gradient(180deg,#1c1409,#120c07);
+    border-bottom:1px solid var(--brass-deep)}
+  .dialog .bar .p{font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--value);font-size:.85rem}
+  .dialog .bar .x{margin-left:auto;color:var(--label);font-family:var(--f-mono);cursor:pointer}
+  .dialog .body{padding:1rem;display:flex;flex-direction:column;gap:.7rem}
+  .dialog .kv{display:flex;justify-content:space-between;font-family:var(--f-mono);font-size:.7rem;letter-spacing:.04em}
+  .dialog .kv span:first-child{color:var(--label);text-transform:uppercase}
+  .dialog .kv span:last-child{color:var(--value)}
+
+  .ref img{width:100%;max-width:640px;height:auto;display:block;border:1px solid var(--line);border-radius:3px}
+
+  .icon{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.6}
 </style>
 
 <header>
-  <h1>Deus Ex Card Lab</h1>
-  <span class="sub">card-mod preview &middot; no HA needed &middot;
+  <h1>Deus&nbsp;Ex <b>Card&nbsp;Lab</b></h1>
+  <span class="sub">component kit &middot; no HA &middot;
     <a href="https://github.com/Aamoree99/ha-deus-ex-theme">Aamoree99/ha-deus-ex-theme</a></span>
-  <div class="toolbar" role="group" aria-label="Card style">
+  <div class="toolbar" role="group" aria-label="Frame style">
     <button id="b-proposed" aria-pressed="true">Proposed</button>
     <button id="b-current" aria-pressed="false">Current</button>
   </div>
 </header>
 
 <main id="root" data-variant="proposed">
-  <section class="pane">
-    <h2>Live preview — Дом Beta</h2>
+
+  <!-- 1 ARTIFACT CARD -->
+  <section class="kit">
+    <h2><span class="n">01</span> Карточка-артефакт &mdash; markdown / button-card</h2>
     <div class="stage">
-      <div class="dx-row">
-        <article class="dx-card">
-          <div class="dx-label">Спальня</div>
-          <div class="dx-value">21.4&deg;</div>
-          <div class="dx-foot"><span class="dot"></span>TRV manual<span class="meta">18:22</span></div>
-        </article>
-        <article class="dx-card">
-          <div class="dx-label">Кино-режим</div>
-          <div class="dx-value">ВКЛ</div>
-          <div class="dx-foot"><span class="dot"></span>scene_cinema<span class="meta">on</span></div>
-        </article>
-        <article class="dx-card">
-          <div class="dx-label">Прихожая</div>
-          <div class="dx-value">85%</div>
-          <div class="dx-foot"><span class="dot"></span>relay: on<span class="meta">WiZ</span></div>
-        </article>
-      </div>
-      <div class="dx-row">
-        <article class="dx-card">
-          <div class="dx-label">На улице</div>
-          <div class="dx-value">22.4&deg;</div>
-          <div class="dx-foot"><span class="dot"></span>forecast<span class="meta">ясно</span></div>
-        </article>
-        <article class="dx-card">
-          <div class="dx-label">Дом</div>
-          <div class="dx-value">Дома</div>
-          <div class="dx-foot"><span class="dot"></span>home_mode<span class="meta">Илья</span></div>
-        </article>
-      </div>
+      <article class="dx" style="max-width:560px">
+        <span class="bracket"></span>
+        <div class="artifact-head">
+          <span class="t">Предлагаемое</span><span class="s">лакированное дерево / латунный кант / заклёпка</span>
+        </div>
+        <div class="stage grid" style="background:none;border:0;padding:0">
+          <div class="dx" style="padding:.8rem .9rem .85rem">
+            <span class="bracket"></span>
+            <div class="eyebrow">Спальня</div>
+            <div class="val">21.4&deg;</div>
+            <div class="foot"><span class="dot"></span>TRV manual<span class="meta">18:22</span></div>
+          </div>
+          <div class="dx" style="padding:.8rem .9rem .85rem">
+            <span class="bracket"></span>
+            <div class="eyebrow">Кино-режим</div>
+            <div class="val">ВКЛ</div>
+            <div class="foot"><span class="dot"></span>scene_cinema<span class="meta">on</span></div>
+          </div>
+          <div class="dx" style="padding:.8rem .9rem .85rem">
+            <span class="bracket"></span>
+            <div class="eyebrow">Прихожая</div>
+            <div class="val">85%</div>
+            <div class="foot"><span class="dot"></span>relay: on<span class="meta">WiZ</span></div>
+          </div>
+        </div>
+      </article>
     </div>
-    <p class="caption">
-      <b>Treatment:</b> лакированное дерево — тёплый чёрный с зерном и верхним бликом лака /
-      <b>латунный кант</b> — 1px градиент EAD196&rarr;C79238&rarr;6f4f22 по контуру, включая срезы /
-      <b>заклёпка</b> — выпуклый стад на насечке / срез угла: насечка слева-сверху + шамфер справа-снизу.
-    </p>
+    <p class="note"><b>Как:</b> <span class="card">markdown-карточка</span> (у тебя их 14) или <code>custom:button-card</code> с шаблоном ниже.
+      Тема даёт рамку/лак/кант/заклёпку и переменные шрифта; <span class="card">вёрстка eyebrow → value → footer — в самой карточке</span>. Снип: <code>cards/artifact-card.md.yaml</code>.</p>
   </section>
 
-  <section class="pane ref">
-    <h2>Reference — artifact</h2>
-    <img src="https://raw.githubusercontent.com/Aamoree99/ha-deus-ex-theme/main/reference/artifact-proposed.png"
-         alt="Предлагаемый стиль карточек: лакированное дерево, латунный кант, заклёпка">
-    <p class="caption">
-      Файл: <b>reference/artifact-proposed.png</b>. Ниже по факту — то же, что сейчас на
-      «Дом Beta» (<b>reference/current-state.png</b>): плоские коричневые чипы без объёма.
-    </p>
+  <!-- 2 TILE -->
+  <section class="kit">
+    <h2><span class="n">02</span> Tile &mdash; нативный, restyle темой</h2>
+    <div class="stage grid">
+      <div class="dx tile active">
+        <span class="bracket"></span>
+        <span class="ic"><svg class="icon" viewBox="0 0 24 24"><path d="M12 3v2m0 14v2m9-9h-2M5 12H3m14.5-6.5-1.4 1.4M7.9 16.1l-1.4 1.4m0-11.9 1.4 1.4m8.6 8.6 1.4 1.4"/><circle cx="12" cy="12" r="4"/></svg></span>
+        <div class="tx"><div class="p">Гостиная</div><div class="q">Вкл · 68%</div></div>
+      </div>
+      <div class="dx tile">
+        <span class="bracket"></span>
+        <span class="ic"><svg class="icon" viewBox="0 0 24 24"><path d="M4 20V10l8-6 8 6v10H4z"/><path d="M9 20v-6h6v6"/></svg></span>
+        <div class="tx"><div class="p">Прихожая</div><div class="q">Выкл</div></div>
+      </div>
+      <div class="dx tile">
+        <span class="bracket"></span>
+        <span class="ic"><svg class="icon" viewBox="0 0 24 24"><path d="M3 12h18M12 3v18"/><circle cx="12" cy="12" r="9"/></svg></span>
+        <div class="tx"><div class="p">Робот-пылесос</div><div class="q">Док · 100%</div></div>
+      </div>
+    </div>
+    <p class="note"><b>Как:</b> <span class="theme">тема</span> красит иконку-плитку, шрифт имени, моно-капс для вторичной строки, активное состояние — золотое свечение.
+      Селекторы через <code>card-mod-card</code> с <code>$</code>-piercing по <code>hui-tile-card</code>. 100% автоматом на всех 49 tile.</p>
   </section>
+
+  <!-- 3 BUTTON -->
+  <section class="kit">
+    <h2><span class="n">03</span> Кнопки &mdash; HUD action</h2>
+    <div class="stage rowwrap">
+      <button class="btn primary">Сцена: Кино</button>
+      <button class="btn">Спокойной ночи</button>
+      <button class="btn">Ушёл из дома</button>
+      <button class="btn" style="border-color:var(--alert);color:#e9b9a8">Сброс TRV</button>
+    </div>
+    <p class="note"><b>Как:</b> нативная <code>button</code>-карточка + <span class="theme">тема</span> (форма со срезом, латунный кант, hover-свечение, active = золото).
+      Семантика alert — отдельным <code>card_mod</code> на конкретной кнопке. Снип: <code>cards/button-hud.yaml</code>.</p>
+  </section>
+
+  <!-- 4 + 5 TOGGLE + SLIDER -->
+  <section class="kit">
+    <h2><span class="n">04</span> Тумблер · слайдер яркости</h2>
+    <div class="stage grid">
+      <div class="dx togglerow">
+        <span class="bracket"></span>
+        <div class="tx"><div class="p">Отопительный сезон</div><div class="q">heating_season</div></div>
+        <div class="sw on"><i></i></div>
+      </div>
+      <div class="dx togglerow">
+        <span class="bracket"></span>
+        <div class="tx"><div class="p">Кормушка BLE-relay</div><div class="q">petkit</div></div>
+        <div class="sw"><i></i></div>
+      </div>
+      <div class="dx slider">
+        <span class="bracket"></span>
+        <div class="lbl"><span>Спальня · WiZ RGBW</span><b>62%</b></div>
+        <div class="track"><div class="fill"></div></div>
+      </div>
+    </div>
+    <p class="note"><b>Как:</b> <span class="theme">тема</span> — <code>switch-checked-*</code>, <code>paper-slider-*</code>, <code>--md-slider-*</code> + card-mod на handle/track.
+      Форма ползунка со срезом и золотой засечкой у края заливки.</p>
+  </section>
+
+  <!-- 6 GRAPH -->
+  <section class="kit">
+    <h2><span class="n">06</span> График &mdash; mini-graph-card</h2>
+    <div class="stage">
+      <div class="dx graph" style="max-width:460px">
+        <span class="bracket"></span>
+        <div class="head"><span class="p">Гостиная · 24ч</span><span class="v">21.4&deg;</span></div>
+        <svg viewBox="0 0 300 74" preserveAspectRatio="none" aria-hidden="true">
+          <defs><linearGradient id="dxfill" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0" stop-color="#D4A93A" stop-opacity=".28"/><stop offset="1" stop-color="#D4A93A" stop-opacity="0"/>
+          </linearGradient></defs>
+          <line class="gl" x1="0" y1="18" x2="300" y2="18"/><line class="gl" x1="0" y1="46" x2="300" y2="46"/>
+          <path class="ar" d="M0,52 L30,44 60,48 90,30 120,34 150,20 180,26 210,16 240,24 270,12 300,18 L300,74 L0,74 Z"/>
+          <path class="ln" d="M0,52 L30,44 60,48 90,30 120,34 150,20 180,26 210,16 240,24 270,12 300,18"/>
+          <circle class="pt" cx="300" cy="18" r="3.2"/>
+        </svg>
+        <div style="display:flex;justify-content:space-between;margin-top:.3rem">
+          <span class="ax" style="font-family:var(--f-mono);font-size:.55rem;letter-spacing:.08em;color:var(--shell-dim)">−24Ч</span>
+          <span class="ax" style="font-family:var(--f-mono);font-size:.55rem;letter-spacing:.08em;color:var(--shell-dim)">СЕЙЧАС</span>
+        </div>
+      </div>
+    </div>
+    <p class="note"><b>Как:</b> нативный <code>history-graph</code> не стилится — <span class="card">ставим на <code>mini-graph-card</code></span> (уже установлен) или ApexCharts.
+      <code>line_color</code>, градиент-заливка, <code>line_width: 2</code>, точка endpoint, сетка через card-mod. Снип: <code>cards/mini-graph.yaml</code>.</p>
+  </section>
+
+  <!-- 7 THERMOSTAT -->
+  <section class="kit">
+    <h2><span class="n">07</span> Термостат</h2>
+    <div class="stage rowwrap">
+      <div class="dx thermo" style="max-width:320px">
+        <span class="bracket"></span>
+        <div class="dial"></div>
+        <div class="di">
+          <div class="set">21&deg;</div>
+          <div class="cur">сейчас 20.4&deg;</div>
+          <div class="mode">Heat · manual</div>
+        </div>
+      </div>
+    </div>
+    <p class="note"><b>Как:</b> <span class="theme">тема</span> — <code>state-climate-*-color</code> → золото, дуга и цифры через card-mod по <code>hui-thermostat-card</code>.
+      Полный контроль дуги — только при замене на <code>custom:better-thermostat-ui-card</code> (не обязательно).</p>
+  </section>
+
+  <!-- 8 + 9 SIDEBAR + BADGES -->
+  <section class="kit">
+    <h2><span class="n">08</span> Сайдбар · бейджи</h2>
+    <div class="stage rowwrap">
+      <div class="rail">
+        <div class="nav sel"><svg class="icon" viewBox="0 0 24 24"><path d="M4 20V10l8-6 8 6v10H4z"/></svg>Дом</div>
+        <div class="nav"><svg class="icon" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="M10 9l5 3-5 3z"/></svg>Медиа</div>
+        <div class="nav"><svg class="icon" viewBox="0 0 24 24"><path d="M12 3v18M7 8h10M7 16h10"/></svg>Климат</div>
+        <div class="nav"><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Система</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:.7rem">
+        <span class="badge"><span class="d"></span>Илья · дома</span>
+        <span class="badge"><span class="d off" style="background:#4a3a1c;box-shadow:none"></span>Мария · не дома</span>
+        <span class="badge alert"><span class="d"></span>Проблемы дома · 2</span>
+        <span class="badge">Батарея TRV · 14%</span>
+      </div>
+    </div>
+    <p class="note"><b>Как:</b> <span class="theme">тема</span> — <code>card-mod-sidebar</code> (уже есть, донастроить срез + золотой маркер выбранного),
+      бейджи через <code>ha-label-badge</code> vars + card-mod. Alert-цвет — семантика, не акцент.</p>
+  </section>
+
+  <!-- 10 + 11 HEADER + DIALOG -->
+  <section class="kit">
+    <h2><span class="n">10</span> Шапка · more-info диалог</h2>
+    <div class="stage rowwrap">
+      <div style="flex:1;min-width:280px;border:1px solid var(--brass-deep)">
+        <div class="apphead">
+          <span class="title">Дом Beta</span>
+          <div class="tabs"><span class="tab sel">Home</span><span class="tab">Media</span><span class="tab">Climate</span></div>
+        </div>
+        <div style="padding:1rem;font-family:var(--f-mono);font-size:.62rem;color:var(--shell-dim);letter-spacing:.06em">app-header + view tabs</div>
+      </div>
+      <div class="dx dialog">
+        <span class="bracket"></span>
+        <div class="bar"><span class="p">WiZ RGBW</span><span class="x">✕</span></div>
+        <div class="body">
+          <div class="kv"><span>Состояние</span><span>Вкл</span></div>
+          <div class="kv"><span>Яркость</span><span>62%</span></div>
+          <div class="kv"><span>Эффект</span><span>Bedtime</span></div>
+          <div class="kv"><span>Площадь</span><span>Спальня</span></div>
+        </div>
+      </div>
+    </div>
+    <p class="note"><b>Как:</b> <span class="theme">тема</span> — <code>app-header-*</code> vars + <code>card-mod-more-info</code> (card-mod 3.4+) для рамки диалога и моно-KV.</p>
+  </section>
+
+  <!-- REFERENCE -->
+  <section class="kit ref">
+    <h2><span class="n">00</span> Reference &mdash; artifact</h2>
+    <img src="https://raw.githubusercontent.com/Aamoree99/ha-deus-ex-theme/main/reference/artifact-proposed.png"
+         alt="Предлагаемый стиль: лакированное дерево, латунный кант, заклёпка">
+    <p class="note">Файлы: <b>reference/artifact-proposed.png</b> · <b>reference/current-state.png</b> (сейчас на «Дом Beta» — плоские чипы).</p>
+  </section>
+
 </main>
 
 <script>
   var root=document.getElementById('root'),
-      bp=document.getElementById('b-proposed'),
-      bc=document.getElementById('b-current');
+      bp=document.getElementById('b-proposed'),bc=document.getElementById('b-current');
   function set(v){
     root.dataset.variant=v;
     bp.setAttribute('aria-pressed',v==='proposed');
