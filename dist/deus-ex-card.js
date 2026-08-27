@@ -3,7 +3,7 @@
  *  eyebrow → value → footer(status dot · text · right-aligned meta).
  *  Pairs with the Deus Ex theme (reads its --dx-* vars, falls back to literals).
  */
-const VERSION = "1.0.0";
+const VERSION = "1.1.0";
 
 const FALLBACK = `
 :host{
@@ -111,17 +111,19 @@ class DeusExCard extends HTMLElement {
     this._config = null;
     this._root = this.attachShadow({ mode: "open" });
     this._built = false;
+    this._tpl = {};          // key -> rendered template result
+    this._tplUnsub = {};     // key -> unsubscribe promise
   }
 
   setConfig(config) {
     if (!config) throw new Error("deus-ex-card: missing config");
     this._config = {
       entity: config.entity,
-      label: config.label,          // eyebrow: string | entity_id | undefined(→ friendly name)
-      value: config.value,          // override: string | entity_id | undefined(→ entity state)
+      label: config.label,          // eyebrow: string | entity_id | {{ template }} | undefined(→ friendly name)
+      value: config.value,          // override: string | entity_id | {{ template }} | undefined(→ entity state)
       attribute: config.attribute,  // read this attribute of `entity` instead of state
-      footer: config.footer,        // string | entity_id
-      meta: config.meta,            // string | entity_id
+      footer: config.footer,        // string | entity_id | {{ template }}
+      meta: config.meta,            // string | entity_id | {{ template }}
       status: config.status,        // entity_id whose on/off drives the dot; default = entity
       tap_action: config.tap_action || { action: "more-info" },
       hold_action: config.hold_action || { action: "more-info" },
@@ -129,12 +131,53 @@ class DeusExCard extends HTMLElement {
       ...config,
     };
     this._built = false;
+    this._tpl = {};
+    this._resubscribe();
     this._render();
   }
 
   set hass(hass) {
+    const first = !this._hass;
     this._hass = hass;
+    if (first) this._resubscribe();
     this._render();
+  }
+
+  connectedCallback() { this._resubscribe(); }
+  disconnectedCallback() { this._unsubscribeAll(); }
+
+  // -- templates --------------------------------------------------------
+
+  static _isTemplate(v) {
+    return typeof v === "string" && (v.includes("{{") || v.includes("{%"));
+  }
+
+  _resubscribe() {
+    if (!this._hass || !this._config || !this._hass.connection) return;
+    const keys = ["label", "value", "footer", "meta"];
+    for (const k of keys) {
+      const v = this._config[k];
+      const want = DeusExCard._isTemplate(v);
+      if (want && !this._tplUnsub[k]) {
+        this._tplUnsub[k] = this._hass.connection.subscribeMessage(
+          (msg) => { this._tpl[k] = msg.result; this._render(); },
+          { type: "render_template", template: v, variables: { config: this._config, user: this._hass.user }, strict: false },
+        ).catch((e) => { this._tpl[k] = `⚠ ${e.message || e}`; this._render(); });
+      } else if (!want && this._tplUnsub[k]) {
+        this._killSub(k);
+      }
+    }
+  }
+
+  _killSub(k) {
+    const p = this._tplUnsub[k];
+    delete this._tplUnsub[k];
+    delete this._tpl[k];
+    if (p && typeof p.then === "function") p.then((u) => { try { u(); } catch (e) {} });
+  }
+
+  _unsubscribeAll() {
+    Object.keys(this._tplUnsub).forEach((k) => this._killSub(k));
   }
 
   getCardSize() { return 2; }
@@ -149,8 +192,9 @@ class DeusExCard extends HTMLElement {
     return typeof v === "string" && /^[a-z_]+\.[a-z0-9_]+$/.test(v) && !!this._hass && v in this._hass.states;
   }
 
-  _resolve(v, { raw = false } = {}) {
+  _resolve(v, { raw = false, key = null } = {}) {
     if (v === undefined || v === null || v === "") return "";
+    if (key && DeusExCard._isTemplate(v)) return this._tpl[key] === undefined ? "" : String(this._tpl[key]);
     if (this._isEntityId(v)) {
       const st = this._hass.states[v];
       if (raw) return st.state;
@@ -170,8 +214,8 @@ class DeusExCard extends HTMLElement {
 
   _valueParts() {
     const cfg = this._config;
-    // explicit override
-    if (cfg.value !== undefined) return { text: this._resolve(cfg.value), unit: "" };
+    // explicit override (string | entity_id | template)
+    if (cfg.value !== undefined) return { text: this._resolve(cfg.value, { key: "value" }), unit: "" };
     const st = cfg.entity && this._hass ? this._hass.states[cfg.entity] : null;
     if (!st) return { text: cfg.entity ? "—" : "", unit: "" };
     if (cfg.attribute) {
@@ -192,7 +236,7 @@ class DeusExCard extends HTMLElement {
 
   _labelText() {
     const cfg = this._config;
-    if (cfg.label !== undefined) return this._resolve(cfg.label);
+    if (cfg.label !== undefined) return this._resolve(cfg.label, { key: "label" });
     const st = cfg.entity && this._hass ? this._hass.states[cfg.entity] : null;
     return st && st.attributes && st.attributes.friendly_name ? st.attributes.friendly_name : (cfg.entity || "");
   }
@@ -295,8 +339,8 @@ class DeusExCard extends HTMLElement {
     if (!this._hass && this._config.entity) return;
 
     const { text, unit } = this._valueParts();
-    const footer = this._resolve(this._config.footer);
-    const meta = this._resolve(this._config.meta);
+    const footer = this._resolve(this._config.footer, { key: "footer" });
+    const meta = this._resolve(this._config.meta, { key: "meta" });
 
     this._el.eyebrow.textContent = this._labelText();
     this._el.vt.textContent = text;

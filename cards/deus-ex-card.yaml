@@ -1,0 +1,60 @@
+# custom:deus-ex-card — paste-ready examples
+# The card that matches the artifact 1:1 inside a dashboard view.
+# Needs /local/deus-ex-card.js registered as a resource — see docs/install.md.
+#
+# label / value / footer / meta each accept:
+#   • a plain string            "Спальня"
+#   • an entity_id              sensor.bedroom_temp_temperature   (→ its formatted state)
+#   • a Jinja template          "{{ states('sensor.x') | round(1) }}°"
+# `attribute:` reads an attribute of `entity` instead of its state.
+# `status:` picks the entity that drives the status dot (default = entity).
+
+# --- 1. temperature; footer + meta pulled from entities -------------------
+type: custom:deus-ex-card
+entity: sensor.living_room_temp_temperature
+label: Гостиная
+footer: climate.trv_living_room
+meta: sensor.living_room_temp_humidity
+status: climate.trv_living_room
+tap_action: { action: more-info }
+
+---
+# --- 2. cinema mode; template value, action fires the script -------------
+type: custom:deus-ex-card
+entity: input_boolean.cinema_mode
+label: Кино-режим
+value: "{{ 'ВКЛ' if is_state('input_boolean.cinema_mode','on') else 'ВЫКЛ' }}"
+footer: "{{ 'сцена восстановится' if is_state('input_boolean.cinema_mode','on') else 'выкл' }}"
+meta: input_boolean.cinema_mode
+tap_action:
+  action: call-service
+  service: script.scene_cinema_toggle
+
+---
+# --- 3. light; explicit percentage value --------------------------------
+type: custom:deus-ex-card
+entity: light.hallway
+label: Прихожая
+value: "{{ (state_attr('light.hallway','brightness') | int(0) / 255 * 100) | round }}%"
+footer: relay on
+meta: WiZ
+tap_action: { action: toggle }
+
+---
+# --- 4. climate attribute + templated footer ---------------------------
+type: custom:deus-ex-card
+entity: climate.trv_bedroom
+label: Спальня
+attribute: current_temperature
+footer: "уставка {{ state_attr('climate.trv_bedroom','temperature') }}°"
+meta: climate.trv_bedroom
+
+---
+# --- 5. presence; problem sensor drives a rust status dot -------------
+type: custom:deus-ex-card
+entity: sensor.problemy_doma
+label: Дом
+value: "{{ states('sensor.problemy_doma') }}"
+footer: "{{ (state_attr('sensor.problemy_doma','lines') or ['всё ок'])[0] }}"
+meta: "{{ 'внимание' if states('sensor.problemy_doma')|int(0) > 0 else 'ок' }}"
+tap_action: { action: more-info }

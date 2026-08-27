@@ -1,12 +1,27 @@
 # Deus Ex — Home Assistant theme
 
-A dark gold / brass reskin of the [cyberpunk-2077](https://github.com/flejz/hass-cyberpunk-2077-theme)
-Home Assistant theme. Muted amber accents (`#C79238` / `#D4A93A`), lacquered‑wood card
-surfaces, brass hairline trim, cut corners and rivet studs.
+Black + matte gold. Lacquered‑wood card surfaces, brass hairline кант, cut corners,
+rivet studs, HUD corner brackets. A reskin of
+[cyberpunk-2077](https://github.com/flejz/hass-cyberpunk-2077-theme), rebuilt around
+the Deus Ex MD look.
+
+Ships two things:
+- **the theme** — `themes/deus-ex.yaml`, styles every card, the background, dialogs, sidebar
+- **`custom:deus-ex-card`** — `dist/deus-ex-card.js`, a HUD stat card (eyebrow → value →
+  footer with status dot + right‑aligned meta) that matches the reference exactly
 
 Used on the **Дом Beta** floorplan dashboard.
 
 ![proposed card style](reference/artifact-proposed.png)
+
+## Docs
+
+- [`docs/install.md`](docs/install.md) — theme + card setup
+- [`docs/deus-ex-card.md`](docs/deus-ex-card.md) — card options reference
+- [`docs/fidelity.md`](docs/fidelity.md) — what matches the artifact 1:1, what's approximate
+- [`cards/`](cards/) — paste‑ready dashboard snippets
+- [`tools/preview.html`](tools/preview.html) — component kit, opens without HA
+- [`tools/harness.html`](tools/harness.html) — the real card on a mock `hass`
 
 ## Install
 
@@ -58,8 +73,13 @@ override, drop the file at `<config>/www/deus-ex/background.jpg` and point
 ## Layout
 
 ```
-themes/deus-ex.yaml      the theme
+themes/deus-ex.yaml       the theme
+dist/deus-ex-card.js      the custom card
+cards/                    paste-ready dashboard snippets
+docs/                     install / options / fidelity
 assets/background.jpg     wallpaper served to HA via GitHub raw
+assets/background-src.png raw wallpaper, pre-vignette (for re-tuning)
+tools/                    HA-free preview + harness
 reference/                design references (not used by HA)
 ```
 

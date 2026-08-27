@@ -1,0 +1,56 @@
+# Native cards — these get the Deus Ex look from the theme alone.
+# No card_mod needed. Just make sure the "Deus Ex" theme is active
+# (per-dashboard `theme: Deus Ex` or in your profile).
+
+# ---- tile: HUD icon plate + gold active glow (theme-styled) ----
+type: tile
+entity: light.kitchen_lamp
+name: Кухня
+# secondary rendered mono-caps by the theme; icon plate + glow automatic
+
+---
+# ---- tile with a brightness slider feature ----
+type: tile
+entity: light.wiz_rgbw_tunable_b09186
+name: Спальня
+features:
+  - type: light-brightness
+
+---
+# ---- button: HUD action (cut corners, brass edge, hover glow) ----
+show_name: true
+show_icon: true
+type: button
+name: Спокойной ночи
+icon: mdi:weather-night
+tap_action:
+  action: call-service
+  service: script.good_night_toggle
+
+---
+# ---- section heading, "ПРЕДЛАГАЕМОЕ"-style (theme uppercases + tracks it) ----
+type: heading
+heading: Предлагаемое
+heading_style: title
+
+---
+# ---- mini-graph-card: gold readout ----
+# needs custom:mini-graph-card (already installed on this HA)
+type: custom:mini-graph-card
+name: Гостиная · 24ч
+entities:
+  - sensor.living_room_temp_temperature
+hours_to_show: 24
+points_per_hour: 2
+line_width: 2
+line_color: "var(--dx-gold)"
+color_thresholds_transition: hard
+show:
+  fill: fade
+  points: false
+  extrema: true
+  labels: false
+card_mod:
+  style: |
+    ha-card { --accent-color: var(--dx-gold); }
+    .graph .fill { opacity: .22 !important; }

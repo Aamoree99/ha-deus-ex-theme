@@ -61,6 +61,21 @@
       return u ? `${st.state} ${u}` : st.state;
     },
     callService(d,s,data){ log(`callService ${d}.${s} ${JSON.stringify(data||{})}`); },
+    user:{ name:"ilia" },
+    connection:{
+      // minimal stub: recognise render_template, fake a result, allow "updates"
+      subscribeMessage(cb, msg){
+        if (msg && msg.type === "render_template"){
+          log(`subscribe render_template: ${msg.template.slice(0,40)}…`);
+          const fake = msg.template.includes("temperature")
+            ? "уставка 21°"
+            : (msg.template.includes("cinema") ? "готов" : "OK");
+          setTimeout(()=> cb({ result: fake }), 200);
+          return Promise.resolve(()=> log("unsub render_template"));
+        }
+        return Promise.resolve(()=>{});
+      },
+    },
   };
 
   const log = (m)=>{ document.getElementById("log").textContent += m + "\n"; };
@@ -71,7 +86,8 @@
     { entity:"light.hallway", label:"Прихожая", value:"85%", footer:"relay: on", meta:"WiZ" },
     { entity:"person.ilia", label:"Присутствие", footer:"iphone_ilia", meta:"person.ilia" },
     { entity:"sensor.problemy_doma", label:"Дом", value:"2", footer:"нужно внимание", meta:"алерт" },
-    { entity:"climate.trv_bedroom", label:"Отопление", attribute:"current_temperature", footer:"уставка 21°", meta:"climate.trv_bedroom" },
+    { entity:"climate.trv_bedroom", label:"Отопление", attribute:"current_temperature",
+      footer:"{{ state_attr('climate.trv_bedroom','temperature') }}° уставка", meta:"climate.trv_bedroom" },
   ];
 
   customElements.whenDefined("deus-ex-card").then(()=>{
