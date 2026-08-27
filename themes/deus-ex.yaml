@@ -1,0 +1,991 @@
+Deus Ex:
+  # global variables
+  cyan-color: "#D4A93A"
+  dark-cyan-color: "#3A2E14"
+  dark-purple-color: "#140C15"
+  dark-red-color: "#332711"
+  orange-color: "#FFA500"
+  primary-font-family: "'Rajdhani', 'Roboto'"
+  red-color: "#C79238"
+  primary-background: 'url()'
+  background-image: "center / cover no-repeat fixed url('https://raw.githubusercontent.com/Aamoree99/ha-deus-ex-theme/main/assets/background.jpg')"
+
+  # configs 
+  accent-color: "var(--red-color)"
+  app-header-background-color: "var(--dark-purple-color)"
+  app-header-edit-background-color: "var(--dark-purple-color)"
+  app-header-edit-text-color: "var(--primary-text-color)"
+  app-header-text-color: "var(--red-color)"
+  app-header-selection-bar-color: "var(--cyan-color)"
+  app-toolbar-font-size: ""
+  card-background-color: "var(--dark-purple-color)"
+  chip-background-color: "var(--dark-purple-color)"
+  dark-disabled-opacity: ""
+  dark-divider-opacity: ""
+  dark-primary-background-color: "var(--dark-purple-color)"
+  dark-primary-opacity: ""
+  dark-secondary-opacity: ""
+  dark-theme-base-color: ""
+  data-table-background-color: "var(--dark-purple-color)"
+  disabled-color: "var(--dark-purple-color)"
+  disabled-text-color: "var(--dark-purple-color)"
+  divider-color: "var(--dark-red-color)"
+  energy-battery-in-color: ""
+  energy-battery-out-color: ""
+  energy-gas-color: ""
+  energy-grid-consumption-color: ""
+  energy-grid-return-color: ""
+  energy-non-fossil-color: ""
+  energy-solar-color: ""
+  error-color: ""
+  error-state-color: ""
+  ha-card-background: "var(--dark-red-color)"
+  ha-card-border-color: ""
+  ha-card-border-radius: ""
+  ha-card-header-font-size: ""
+  hacs-error-color: "var(--red-color)"
+  hacs-warning-color: "var(--orange-color)"
+  hacs-update-color: "var(--cyan-color)"
+  hacs-new-color: "var(--cyan-color)"
+  hacs--default-icon-color: "var(--red-color)"
+  header-height: ""
+  icon-color: "var(--red-color)"
+  info-color: ""
+  input-disabled-fill-color: "#1a111c"
+  input-disabled-ink-color: "#6c536f"
+  input-disabled-line-color: "var(--dark-red-color)"
+  input-dropdown-icon-color: "var(--red-color)"
+  input-outlined-disabled-border-color: "#38233b"
+  label-badge-background-color: "var(--dark-purple-color)"
+  label-badge-blue: ""
+  label-badge-green: ""
+  label-badge-grey: ""
+  label-badge-red: ""
+  label-badge-color: "var(--cyan-color)"
+  label-badge-yellow: ""
+  layout_-_display: ""
+  layout-around-aligned_-_align-content: ""
+  layout-around-aligned_-_-ms-align-content: ""
+  layout-around-aligned_-_-ms-flex-line-pack: ""
+  layout-around-aligned_-_-webkit-align-content: ""
+  layout-around-justified_-_justify-content: ""
+  layout-around-justified_-_-ms-flex-pack: ""
+  layout-around-justified_-_-webkit-justify-content: ""
+  layout-baseline_-_align-items: ""
+  layout-baseline_-_-ms-flex-align: ""
+  layout-baseline_-_-webkit-align-items: ""
+  layout-between-aligned_-_align-content: ""
+  layout-between-aligned_-_-ms-align-content: ""
+  layout-between-aligned_-_-ms-flex-line-pack: ""
+  layout-between-aligned_-_-webkit-align-content: ""
+  layout-block_-_display: ""
+  layout-center_-_align-items: ""
+  layout-center_-_-ms-flex-align: ""
+  layout-center_-_-webkit-align-items: ""
+  layout-center-aligned_-_align-content: ""
+  layout-center-aligned_-_-ms-align-content: ""
+  layout-center-aligned_-_-ms-flex-line-pack: ""
+  layout-center-aligned_-_-webkit-align-content: ""
+  layout-center-center_-_align-items: ""
+  layout-center-center_-_justify-content: ""
+  layout-center-center_-_-ms-flex-align: ""
+  layout-center-center_-_-ms-flex-pack: ""
+  layout-center-center_-_-webkit-align-items: ""
+  layout-center-center_-_-webkit-justify-content: ""
+  layout-center-justified_-_justify-content: ""
+  layout-center-justified_-_-ms-flex-pack: ""
+  layout-center-justified_-_-webkit-justify-content: ""
+  layout-end_-_align-items: ""
+  layout-end_-_-ms-flex-align: ""
+  layout-end_-_-webkit-align-items: ""
+  layout-end-aligned_-_align-content: ""
+  layout-end-aligned_-_-ms-align-content: ""
+  layout-end-aligned_-_-ms-flex-line-pack: ""
+  layout-end-aligned_-_-webkit-align-content: ""
+  layout-end-justified_-_justify-content: ""
+  layout-end-justified_-_-ms-flex-pack: ""
+  layout-end-justified_-_-webkit-justify-content: ""
+  layout-fit: ""
+  layout-fit_-_bottom: ""
+  layout-fit_-_left: ""
+  layout-fit_-_position: ""
+  layout-fit_-_right: ""
+  layout-fit_-_top: ""
+  layout-fixed-bottom_-_bottom: ""
+  layout-fixed-bottom_-_left: ""
+  layout-fixed-bottom_-_position: ""
+  layout-fixed-bottom_-_right: ""
+  layout-fixed-left_-_bottom: ""
+  layout-fixed-left_-_left: ""
+  layout-fixed-left_-_position: ""
+  layout-fixed-left_-_top: ""
+  layout-fixed-right_-_bottom: ""
+  layout-fixed-right_-_position: ""
+  layout-fixed-right_-_right: ""
+  layout-fixed-right_-_top: ""
+  layout-fixed-top_-_left: ""
+  layout-fixed-top_-_position: ""
+  layout-fixed-top_-_right: ""
+  layout-fixed-top_-_top: ""
+  layout-flex_-_flex: ""
+  layout-flex_-_flex-basis: ""
+  layout-flex_-_-ms-flex: ""
+  layout-flex_-_-webkit-flex: ""
+  layout-flex_-_-webkit-flex-basis: ""
+  layout-flex-10_-_flex: ""
+  layout-flex-10_-_-ms-flex: ""
+  layout-flex-10_-_-webkit-flex: ""
+  layout-flex-11_-_flex: ""
+  layout-flex-11_-_-ms-flex: ""
+  layout-flex-11_-_-webkit-flex: ""
+  layout-flex-12_-_flex: ""
+  layout-flex-12_-_-ms-flex: ""
+  layout-flex-12_-_-webkit-flex: ""
+  layout-flex-2_-_flex: ""
+  layout-flex-2_-_-ms-flex: ""
+  layout-flex-2_-_-webkit-flex: ""
+  layout-flex-3_-_flex: ""
+  layout-flex-3_-_-ms-flex: ""
+  layout-flex-3_-_-webkit-flex: ""
+  layout-flex-4_-_flex: ""
+  layout-flex-4_-_-ms-flex: ""
+  layout-flex-4_-_-webkit-flex: ""
+  layout-flex-5_-_flex: ""
+  layout-flex-5_-_-ms-flex: ""
+  layout-flex-5_-_-webkit-flex: ""
+  layout-flex-6_-_flex: ""
+  layout-flex-6_-_-ms-flex: ""
+  layout-flex-6_-_-webkit-flex: ""
+  layout-flex-7_-_flex: ""
+  layout-flex-7_-_-ms-flex: ""
+  layout-flex-7_-_-webkit-flex: ""
+  layout-flex-8_-_flex: ""
+  layout-flex-8_-_-ms-flex: ""
+  layout-flex-8_-_-webkit-flex: ""
+  layout-flex-9_-_flex: ""
+  layout-flex-9_-_-ms-flex: ""
+  layout-flex-9_-_-webkit-flex: ""
+  layout-flex-auto_-_flex: ""
+  layout-flex-auto_-_-ms-flex: ""
+  layout-flex-auto_-_-webkit-flex: ""
+  layout-flex-none_-_flex: ""
+  layout-flex-none_-_-ms-flex: ""
+  layout-flex-none_-_-webkit-flex: ""
+  layout-fullbleed_-_height: ""
+  layout-fullbleed_-_margin: ""
+  layout-horizontal_-_display: ""
+  layout-horizontal_-_flex-direction: ""
+  layout-horizontal_-_-ms-flex-direction: ""
+  layout-horizontal_-_-webkit-flex-direction: ""
+  layout-horizontal-reverse_-_display: ""
+  layout-horizontal-reverse_-_flex-direction: ""
+  layout-horizontal-reverse_-_-ms-flex-direction: ""
+  layout-horizontal-reverse_-_-webkit-flex-direction: ""
+  layout-inline_-_display: ""
+  layout-invisible_-_visibility: ""
+  layout-justified_-_justify-content: ""
+  layout-justified_-_-ms-flex-pack: ""
+  layout-justified_-_-webkit-justify-content: ""
+  layout-relative_-_position: ""
+  layout-scroll_-_overflow: ""
+  layout-scroll_-_-webkit-overflow-scrolling: ""
+  layout-self-baseline_-_align-self: ""
+  layout-self-baseline_-_-ms-align-self: ""
+  layout-self-baseline_-_-webkit-align-self: ""
+  layout-self-center_-_align-self: ""
+  layout-self-center_-_-ms-align-self: ""
+  layout-self-center_-_-webkit-align-self: ""
+  layout-self-end_-_align-self: ""
+  layout-self-end_-_-ms-align-self: ""
+  layout-self-end_-_-webkit-align-self: ""
+  layout-self-start_-_align-self: ""
+  layout-self-start_-_-ms-align-self: ""
+  layout-self-start_-_-webkit-align-self: ""
+  layout-self-stretch_-_align-self: ""
+  layout-self-stretch_-_-ms-align-self: ""
+  layout-self-stretch_-_-webkit-align-self: ""
+  layout-start_-_align-items: ""
+  layout-start_-_-ms-flex-align: ""
+  layout-start_-_-webkit-align-items: ""
+  layout-start-aligned_-_align-content: ""
+  layout-start-aligned_-_-ms-align-content: ""
+  layout-start-aligned_-_-ms-flex-line-pack: ""
+  layout-start-aligned_-_-webkit-align-content: ""
+  layout-start-justified_-_justify-content: ""
+  layout-start-justified_-_-ms-flex-pack: ""
+  layout-start-justified_-_-webkit-justify-content: ""
+  layout-vertical_-_display: ""
+  layout-vertical_-_flex-direction: ""
+  layout-vertical_-_-ms-flex-direction: ""
+  layout-vertical_-_-webkit-flex-direction: ""
+  layout-vertical-reverse_-_display: ""
+  layout-vertical-reverse_-_flex-direction: ""
+  layout-vertical-reverse_-_-ms-flex-direction: ""
+  layout-vertical-reverse_-_-webkit-flex-direction: ""
+  layout-wrap_-_flex-wrap: ""
+  layout-wrap_-_-ms-flex-wrap: ""
+  layout-wrap_-_-webkit-flex-wrap: ""
+  layout-wrap-reverse_-_flex-wrap: ""
+  layout-wrap-reverse_-_-ms-flex-wrap: ""
+  layout-wrap-reverse_-_-webkit-flex-wrap: ""
+  lovelace-background: "var(--background-image)"
+  light-disabled-opacity: "0.3"
+  light-divider-opacity: ""
+  light-primary-background-color: "var(--dark-purple-color)"
+  light-primary-opacity: ""
+  light-secondary-opacity: ""
+  light-theme-background-color: "var(--dark-purple-color)"
+  light-theme-disabled-color: "var(--cyan-color)"
+  light-theme-secondary-background-color: "var(--dark-purple-color)"
+  light-theme-secondary-color: ""
+  light-theme-color: "var(--red-color)"
+  markdown-code-background-color: "var(--dark-purple-color)"
+  material-background-color: "var(--dark-purple-color)"
+  material-body-color: "var(--red-color)"
+  material-button-font-size: ""
+  material-caption-font-size: ""
+  material-disabled-color: "var(--red-color)"
+  material-divider-color: ""
+  material-error-color: "var(--red-color)"
+  material-h6-font-size: ""
+  material-primary-background-color: "var(--dark-purple-color)"
+  material-primary-contrast-color: ""
+  material-primary-color: "var(--red-color)"
+  material-secondary-background-color: "var(--dark-purple-color)"
+  material-secondary-color: "var(--red-color)"
+  material-shadow-elevation-12dp: ""
+  material-shadow-elevation-16dp: ""
+  material-shadow-elevation-24dp: ""
+  material-shadow-elevation-2dp: ""
+  material-shadow-elevation-3dp: ""
+  material-shadow-elevation-4dp: ""
+  material-shadow-elevation-6dp: ""
+  material-shadow-elevation-8dp: ""
+  material-small-font-size: ""
+  mdc-button-disabled-ink-color: ""
+  mdc-button-outline-color: ""
+  mdc-button-raised-box-shadow-hover: "0 0 5px 3px var(--dark-red-color)"
+  mdc-checkbox-disabled-color: ""
+  mdc-checkbox-unchecked-color: "var(--red-color)"
+  mdc-dialog-scroll-divider-color: ""
+  mdc-radio-disabled-color: ""
+  mdc-radio-unchecked-color: ""
+  mdc-ripple-color: "var(--red-color)"
+  mdc-select-disabled-dropdown-icon-color: "var(--red-color)"
+  mdc-select-disabled-fill-color: "var(--dark-red-color)"
+  mdc-select-disabled-ink-color: "var(--red-color)"
+  mdc-select-outlined-disabled-border-color: ""
+  mdc-select-outlined-hover-border-color: ""
+  mdc-select-outlined-idle-border-color: ""
+  mdc-tab-text-label-color-default: ""
+  mdc-text-field-disabled-fill-color: "#1a111c"
+  mdc-text-field-disabled-ink-color: "#6c536f"
+  mdc-text-field-disabled-line-color: "var(--dark-red-color)"
+  mdc-text-field-fill-color: "#120914"
+  mdc-text-field-hover-line-color: "var(--cyan-color)"
+  mdc-text-field-idle-line-color: "var(--dark-red-color)"
+  mdc-text-field-ink-color: "var(--cyan-color)"
+  mdc-text-field-label-ink-color: "var(--red-color)"
+  mdc-text-field-outlined-disabled-border-color: "#38233b"
+  mdc-text-field-outlined-hover-border-color: "var(--cyan-color)"
+  mdc-text-field-outlined-idle-border-color: "var(--dark-red-color)"
+  mdc-theme-error: ""
+  mdc-theme-on-primary: "var(--dark-red-color)"
+  mdc-theme-on-secondary: "var(--dark-purple-color)"
+  mdc-theme-primary: "var(--cyan-color)"
+  mdc-theme-secondary: "var(--cyan-color)"
+  mdc-theme-text-disabled-on-light: ""
+  mdc-theme-text-hint-on-background: ""
+  mdc-theme-text-icon-on-background: ""
+  mdc-theme-text-primary-on-background: "var(--red-color)"
+  mdc-theme-text-secondary-on-background: ""
+  mini-media-player-overlay-color-stop: ""
+  mush-rgb-red: ""
+  mush-rgb-pink: ""
+  mush-rgb-purple: ""
+  mush-rgb-deep-purple: ""
+  mush-rgb-indigo: ""
+  mush-rgb-blue: ""
+  mush-rgb-light-blue: ""
+  mush-rgb-cyan: ""
+  mush-rgb-teal: ""
+  mush-rgb-green: ""
+  mush-rgb-light-green: ""
+  mush-rgb-lime: ""
+  mush-rgb-yellow: ""
+  mush-rgb-amber: ""
+  mush-rgb-orange: ""
+  mush-rgb-deep-orange: ""
+  mush-rgb-brown: ""
+  mush-rgb-grey: ""
+  mush-rgb-blue-grey: ""
+  mush-rgb-black: ""
+  mush-rgb-white: ""
+  mush-rgb-info: ""
+  mush-rgb-success: ""
+  mush-rgb-warning: ""
+  mush-rgb-danger: ""
+  mush-rgb-state-cover: ""
+  mush-rgb-state-fan: ""
+  mush-rgb-state-light: ""
+  mush-rgb-state-entity: "var(--red-color)"
+  paper-dropdown-menu: ""
+  paper-dropdown-menu-button: ""
+  paper-dropdown-menu-disabled: ""
+  paper-dropdown-menu-icon: ""
+  paper-dropdown-menu-input: "#120914"
+  paper-dropdown-menu-ripple: ""
+  paper-font-body1_-_font-family: "var(--primary-font-family)"
+  paper-font-body1_-_font-size: ""
+  paper-font-body1_-_font-weight: ""
+  paper-font-body1_-_line-height: ""
+  paper-font-body1_-_-webkit-font-smoothing: ""
+  paper-font-body2_-_font-family: "var(--primary-font-family)"
+  paper-font-body2_-_font-size: ""
+  paper-font-body2_-_font-weight: ""
+  paper-font-body2_-_line-height: ""
+  paper-font-body2_-_-webkit-font-smoothing: ""
+  paper-font-button_-_font-family: "var(--primary-font-family)"
+  paper-font-button_-_font-size: ""
+  paper-font-button_-_font-weight: ""
+  paper-font-button_-_letter-spacing: ""
+  paper-font-button_-_line-height: ""
+  paper-font-button_-_overflow: ""
+  paper-font-button_-_text-overflow: ""
+  paper-font-button_-_text-transform: ""
+  paper-font-button_-_-webkit-font-smoothing: ""
+  paper-font-button_-_white-space: ""
+  paper-font-caption_-_font-family: "var(--primary-font-family)"
+  paper-font-caption_-_font-size: ""
+  paper-font-caption_-_font-weight: ""
+  paper-font-caption_-_letter-spacing: ""
+  paper-font-caption_-_line-height: ""
+  paper-font-caption_-_overflow: ""
+  paper-font-caption_-_text-overflow: ""
+  paper-font-caption_-_-webkit-font-smoothing: ""
+  paper-font-caption_-_white-space: ""
+  paper-font-code1_-_font-family: "var(--primary-font-family)"
+  paper-font-code1_-_font-size: ""
+  paper-font-code1_-_font-weight: ""
+  paper-font-code1_-_line-height: ""
+  paper-font-code1_-_-webkit-font-smoothing: ""
+  paper-font-code2_-_font-family: "var(--primary-font-family)"
+  paper-font-code2_-_font-size: ""
+  paper-font-code2_-_font-weight: ""
+  paper-font-code2_-_line-height: ""
+  paper-font-code2_-_-webkit-font-smoothing: ""
+  paper-font-common-base_-_font-family: "var(--primary-font-family)"
+  paper-font-common-base_-_-webkit-font-smoothing: ""
+  paper-font-common-code_-_font-family: "var(--primary-font-family)"
+  paper-font-common-code_-_-webkit-font-smoothing: ""
+  paper-font-common-expensive-kerning_-_text-rendering: ""
+  paper-font-common-nowrap_-_overflow: ""
+  paper-font-common-nowrap_-_text-overflow: ""
+  paper-font-common-nowrap_-_white-space: ""
+  paper-font-display1_-_font-family: "var(--primary-font-family)"
+  paper-font-display1_-_font-size: ""
+  paper-font-display1_-_font-weight: ""
+  paper-font-display1_-_letter-spacing: ""
+  paper-font-display1_-_line-height: ""
+  paper-font-display1_-_-webkit-font-smoothing: ""
+  paper-font-display2_-_font-family: "var(--primary-font-family)"
+  paper-font-display2_-_font-size: ""
+  paper-font-display2_-_font-weight: ""
+  paper-font-display2_-_letter-spacing: ""
+  paper-font-display2_-_line-height: ""
+  paper-font-display2_-_-webkit-font-smoothing: ""
+  paper-font-display3_-_font-family: "var(--primary-font-family)"
+  paper-font-display3_-_font-size: ""
+  paper-font-display3_-_font-weight: ""
+  paper-font-display3_-_letter-spacing: ""
+  paper-font-display3_-_line-height: ""
+  paper-font-display3_-_overflow: ""
+  paper-font-display3_-_text-overflow: ""
+  paper-font-display3_-_-webkit-font-smoothing: ""
+  paper-font-display3_-_white-space: ""
+  paper-font-display4_-_font-family: "var(--primary-font-family)"
+  paper-font-display4_-_font-size: ""
+  paper-font-display4_-_font-weight: ""
+  paper-font-display4_-_letter-spacing: ""
+  paper-font-display4_-_line-height: ""
+  paper-font-display4_-_overflow: ""
+  paper-font-display4_-_text-overflow: ""
+  paper-font-display4_-_-webkit-font-smoothing: ""
+  paper-font-display4_-_white-space: ""
+  paper-font-headline_-_font-family: "var(--primary-font-family)"
+  paper-font-headline_-_font-size: ""
+  paper-font-headline_-_font-weight: ""
+  paper-font-headline_-_letter-spacing: ""
+  paper-font-headline_-_line-height: ""
+  paper-font-headline_-_overflow: ""
+  paper-font-headline_-_text-overflow: ""
+  paper-font-headline_-_-webkit-font-smoothing: ""
+  paper-font-headline_-_white-space: ""
+  paper-font-menu_-_font-family: "var(--primary-font-family)"
+  paper-font-menu_-_font-size: ""
+  paper-font-menu_-_font-weight: ""
+  paper-font-menu_-_line-height: ""
+  paper-font-menu_-_overflow: ""
+  paper-font-menu_-_text-overflow: ""
+  paper-font-menu_-_-webkit-font-smoothing: ""
+  paper-font-menu_-_white-space: ""
+  paper-font-subhead: ""
+  paper-font-subhead_-_font-family: "var(--primary-font-family)"
+  paper-font-subhead_-_font-size: ""
+  paper-font-subhead_-_font-weight: ""
+  paper-font-subhead_-_line-height: ""
+  paper-font-subhead_-_overflow: ""
+  paper-font-subhead_-_text-overflow: ""
+  paper-font-subhead_-_-webkit-font-smoothing: ""
+  paper-font-subhead_-_white-space: ""
+  paper-font-title_-_font-family: "var(--primary-font-family)"
+  paper-font-title_-_font-size: ""
+  paper-font-title_-_font-weight: ""
+  paper-font-title_-_line-height: ""
+  paper-font-title_-_overflow: ""
+  paper-font-title_-_text-overflow: ""
+  paper-font-title_-_-webkit-font-smoothing: ""
+  paper-font-title_-_white-space: ""
+  paper-input-container-color: "var(--red-color)"
+  paper-input-container-input: "var(--cyan-color)"
+  paper-input-container-input_-_font-size: ""
+  paper-input-container-input-align: ""
+  paper-input-container-shared-input-style_-_background: "#120914"
+  paper-input-container-shared-input-style_-_border: "1px solid var(--dark-red-color)"
+  paper-input-container-shared-input-style_-_box-shadow: "inset 0 0 0 1px rgba(94,246,255,0.08)"
+  paper-input-container-shared-input-style_-_color: "var(--cyan-color)"
+  paper-input-container-shared-input-style_-_font-family: "var(--primary-font-family)"
+  paper-input-container-shared-input-style_-_font-size: ""
+  paper-input-container-shared-input-style_-_font-weight: ""
+  paper-input-container-shared-input-style_-_line-height: ""
+  paper-input-container-shared-input-style_-_margin: ""
+  paper-input-container-shared-input-style_-_max-width: ""
+  paper-input-container-shared-input-style_-_outline: ""
+  paper-input-container-shared-input-style_-_padding: "8px 10px"
+  paper-input-container-shared-input-style_-_position: ""
+  paper-input-container-shared-input-style_-_text-align: ""
+  paper-input-container-shared-input-style_-_vertical-align: ""
+  paper-input-container-shared-input-style_-_-webkit-appearance: ""
+  paper-input-container-shared-input-style_-_-webkit-font-smoothing: ""
+  paper-input-container-shared-input-style_-_width: ""
+  paper-item-disabled: ""
+  paper-item-disabled-color: ""
+  paper-item-focused: ""
+  paper-item-focused-before: ""
+  paper-item-icon-active-color: "var(--cyan-color)"
+  paper-item-icon-color: "var(--red-color)"
+  paper-item-min-height: ""
+  paper-item-selected: "var(--cyan-color)"
+  paper-item-selected-weight: ""
+  paper-slider-active-color: "var(--cyan-color)"
+  paper-slider-container-color: "var(--dark-purple-color)"
+  paper-slider-knob-color: "var(--cyan-color)"
+  paper-slider-knob-start-color: "var(--cyan-color)"
+  paper-slider-pin-color: "var(--red-color)"
+  paper-slider-pin-start-color: "var(--cyan-color)"
+  paper-slider-secondary-color: "var(--red-color)"
+  paper-tab-ink: "var(--cyan-color)"
+  primary-color: "var(--orange-color)"
+  primary-background-color: "var(--dark-purple-color)"
+  primary-text-color: "var(--red-color)"
+  rgb-accent-color: "var(--red-color)"
+  rgb-card-background-color: "var(--dark-purple-color)"
+  rgb-primary-background-color: "var(--dark-purple-color)"
+  rgb-primary-color: "var(--red-color)"
+  rgb-secondary-color: "var(--red-color)"
+  rgb-text-primary-background-color: "var(--dark-purple-color)"
+  scrollbar-thumb-color: ""
+  secondary-background-color: "var(--dark-purple-color)"
+  secondary-color: "var(--cyan-color)"
+  secondary-text-color: "var(--cyan-color)"
+  shadow-elevation-12dp_-_box-shadow: ""
+  shadow-elevation-16dp_-_box-shadow: ""
+  shadow-elevation-24dp_-_box-shadow: ""
+  shadow-elevation-2dp_-_box-shadow: ""
+  shadow-elevation-3dp_-_box-shadow: ""
+  shadow-elevation-4dp_-_box-shadow: ""
+  shadow-elevation-6dp_-_box-shadow: ""
+  shadow-elevation-8dp_-_box-shadow: ""
+  shadow-none_-_box-shadow: ""
+  shadow-transition_-_transition: ""
+  sidebar-background-color: "var(--dark-purple-color)"
+  sidebar-icon-color: "var(--red-color)"
+  sidebar-selected-background-color: "var(--dark-red-color)"
+  sidebar-selected-icon-color: "var(--cyan-color)"
+  sidebar-selected-color: "var(--cyan-color)"
+  sidebar-selected-text-color: "var(--cyan-color)"
+  sidebar-color: "var(--red-color)"
+  slider-color: "var(--red-color)"
+  slider-secondary-color: "var(--red-color)"
+  slider-track-color: "var(--dark-purple-color)"
+  state-climate-auto-color: ""
+  state-climate-cool-color: ""
+  state-climate-dry-color: ""
+  state-climate-eco-color: ""
+  state-climate-fan_only-color: ""
+  state-climate-heat-color: ""
+  state-climate-idle-color: ""
+  state-climate-manual-color: ""
+  state-climate-off-color: ""
+  state-color: "var(--red-color)"
+  state-home-color: ""
+  state-icon-active-color: ""
+  state-icon-color: "var(--red-color)"
+  state-icon-error-color: ""
+  state-icon-unavailable-color: ""
+  state-idle-color: ""
+  state-not_home-color: ""
+  state-off-color: ""
+  state-on-color: ""
+  state-unavailable-color: ""
+  state-unknown-color: ""
+  success-color: ""
+  switch-checked-button-color: "var(--cyan-color)"
+  switch-checked-color: "var(--cyan-color)"
+  switch-checked-track-color: "var(--cyan-color)"
+  switch-unchecked-button-color: "var(--red-color)"
+  switch-unchecked-color: "var(--dark-purple-color)"
+  switch-unchecked-track-color: "var(--dark-purple-color)"
+  table-row-alternative-background-color: "var(--dark-purple-color)"
+  table-row-background-color: "var(--dark-purple-color)"
+  text-accent-color: "var(--cyan-color)"
+  text-light-primary-background-color: "var(--dark-purple-color)"
+  text-primary-color: "var(--dark-purple-color)"
+  text-primary-background-color: "var(--dark-red-color)"
+  warning-color: ""
+
+  # card-mod
+  card-mod-theme: cyberpunk-2077
+
+  card-mod-root: |
+    ha-button-menu,
+    mwc-menu,
+    paper-dropdown-menu {
+      overflow: visible;
+      clip-path: none !important;
+    }
+
+    ha-label-badge {
+      --label-badge-color: var(--cyan-color);
+      color: var(--dark-purple-color);
+    }
+
+    .badge {
+      color: var(--cyan-color);
+    }
+
+    ha-map .leaflet-tile-pane {
+      filter: invert(1) hue-rotate(180deg) saturate(0.8) brightness(0.85);
+    }
+
+    ha-map .leaflet-control {
+      filter: invert(1) hue-rotate(180deg);
+    }
+
+  card-mod-card: |
+    ha-card {
+      position: relative;
+      background: var(--dark-purple-color);
+      border-radius: 1px;
+      overflow: visible;
+      clip-path: polygon(
+        0% 0%,
+        26px 0%,
+        34px 8px,
+        100% 8px,
+        100% 100%,
+        14px 100%,
+        0% calc(100% - 14px)
+      );
+      font-family: var(--primary-font-family);
+      transition: background-color 160ms ease-out, filter 160ms ease-out;
+    }
+
+    ha-card:before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      padding: 1px;
+      clip-path: polygon(
+        0% 0%,
+        26px 0%,
+        34px 8px,
+        100% 8px,
+        100% 100%,
+        14px 100%,
+        0% calc(100% - 14px)
+      );
+      background: linear-gradient(135deg, var(--red-color) 0%, var(--dark-red-color) 42%, var(--dark-red-color) 100%);
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    ha-card:after {
+      content: '';
+      position: absolute;
+      top: 8px;
+      left: 26px;
+      width: 5px;
+      height: 5px;
+      background: var(--red-color);
+      border-radius: 50%;
+      box-shadow: 0 0 0 2px var(--dark-purple-color), 0 0 0 3px var(--dark-red-color);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    ha-card > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    ha-card:hover {
+      background: #1D1520;
+      filter: brightness(1.08);
+    }
+
+    ha-card:hover:before {
+      background: linear-gradient(135deg, var(--cyan-color) 0%, var(--red-color) 42%, var(--dark-red-color) 100%);
+    }
+
+    /* Picture-based cards (floorplans, camera stills, glances over an image):
+       the deco frame and card background fight the image content, so these
+       opt out entirely and stay flat/transparent. */
+    hui-picture-elements-card ha-card,
+    hui-picture-card ha-card,
+    hui-picture-glance-card ha-card {
+      clip-path: none !important;
+      background: transparent !important;
+      filter: none !important;
+    }
+
+    hui-picture-elements-card ha-card:before,
+    hui-picture-elements-card ha-card:after,
+    hui-picture-card ha-card:before,
+    hui-picture-card ha-card:after,
+    hui-picture-glance-card ha-card:before,
+    hui-picture-glance-card ha-card:after {
+      content: none !important;
+      display: none !important;
+    }
+
+  card-mod-sidebar: |
+    @-webkit-keyframes blink {
+      0% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.5;
+      }
+      100% {
+        opacity: 0;
+      }
+    }
+
+    .menu .title {
+      color: var(--cyan-color);
+      font-family: var(--primary-font-family);
+      font-weight: bold;
+      margin-top: 4px;
+      text-shadow: 0 0 10px var(--cyan-color),
+                   0 0 20px var(--cyan-color);
+      text-transform: uppercase;
+    }
+
+    .menu ha-icon-button {
+      color: var(--cyan-color) !important;
+    }
+
+    paper-icon-item span,
+    paper-icon-item:hover span {
+      text-transform: uppercase;
+      z-index: 1;
+    }
+
+    paper-icon-item:hover span,
+    paper-icon-item:hover ha-icon,
+    paper-icon-item:hover ha-svg-icon,
+    a[aria-selected=true] paper-icon-item span,
+    a[aria-selected=true] paper-icon-item ha-icon,
+    a[aria-selected=true] paper-icon-item ha-svg-icon {
+      color: var(--cyan-color);
+      font-weight: bold;
+      text-shadow: 0 0 10px var(--cyan-color);
+    }
+
+    paper-icon-item:hover ha-icon,
+    paper-icon-item:hover ha-svg-icon,
+    a[aria-selected=true] paper-icon-item ha-icon,
+    a[aria-selected=true] paper-icon-item ha-svg-icon {
+      animation: blink 250ms infinite alternate
+    }
+
+    paper-icon-item {
+      background-color: var(--red-color);
+      border-radius: 1px !important;
+      clip-path: polygon(
+        0px calc(100% - 7px),
+        1px calc(100% - 9px),
+        1px calc(100% - 20px),
+        0px calc(100% - 22px),
+        0px 0px,
+        100% 0px, 
+        100% calc(100% - 10px), 
+        calc(100% - 10px) 100%, 
+        0px 100%
+      );
+    }
+
+    paper-icon-item:before {
+      background: var(--dark-red-color);
+      clip-path: polygon(
+        5px 0px,
+        100% 0px, 
+        100% calc(100% - 10px), 
+        calc(100% - 10px) 100%, 
+        5px 100%
+      );
+      content: '';
+      display: block;
+      height: calc(100% - 2px);
+      left: 1px;
+      position: absolute;
+      top: 1px;
+      width: calc(100% - 2px);
+      z-index: -1;
+    }
+
+    paper-icon-item,
+    paper-icon-item:before {
+      transition: background-color 100ms ease-out, color 100ms ease-out; 
+    }
+
+    paper-icon-item:after {
+      background-color: var(--red-color);
+      content: '';
+      display: block;
+      height: 100%;
+      left: 5px;
+      position: absolute;
+      top: 0px;
+      width: 1px;
+    }
+
+    paper-icon-item:hover,
+    paper-icon-item:hover:after,
+    a[aria-selected=true] paper-icon-item,
+    a[aria-selected=true] paper-icon-item:after {
+      color: var(--cyan-color); 
+      background-color: var(--cyan-color); 
+    }
+
+    paper-icon-item:hover:before {
+      background-color: var(--dark-red-color);
+    }
+
+    .iron-selected paper-icon-item:focus::before,
+    paper-icon-item:focus:before,
+    a[aria-selected=true] paper-icon-item:before {
+      background-color: var(--dark-cyan-color); 
+    }
+
+    .iron-selected paper-icon-item:focus::before,
+    paper-icon-item:hover:before,
+    paper-icon-item:focus:before,
+    a[aria-selected=true] paper-icon-item:before {
+      border-radius: 1px;
+      position: absolute;
+      inset: 1px 1px;
+      pointer-events: none;
+      content: "";
+      will-change: auto;
+      opacity: 1 !important;
+    }
+
+    div.tooltip {
+      color: var(--dark-purple-color);
+      background-color: var(--cyan-color);
+    }
+
+  # Codex input readability fixes
+  ha-textfield-ink-color: "var(--cyan-color)"
+  ha-select-dropdown-icon-color: "var(--red-color)"
+  code-editor-background-color: "#120914"
+  code-editor-gutter-color: "#1a111c"
+  code-editor-ink-color: "var(--cyan-color)"
+
+  # Codex Material 3 input fixes
+  md-sys-color-surface: "#120914"
+  md-sys-color-surface-container-lowest: "#0b060d"
+  md-sys-color-surface-container-low: "#100812"
+  md-sys-color-surface-container: "#120914"
+  md-sys-color-surface-container-high: "#1a111c"
+  md-sys-color-surface-container-highest: "#1f1422"
+  md-sys-color-on-surface: "var(--cyan-color)"
+  md-sys-color-on-surface-variant: "#f06b62"
+  md-sys-color-primary: "var(--cyan-color)"
+  md-sys-color-secondary: "var(--red-color)"
+  md-sys-color-outline: "var(--dark-red-color)"
+  md-sys-color-outline-variant: "#38233b"
+  md-ref-palette-neutral10: "#120914"
+  md-ref-palette-neutral20: "#1a111c"
+  md-ref-palette-neutral30: "#38233b"
+
+  mdc-theme-surface: "#120914"
+  mdc-theme-on-surface: "var(--cyan-color)"
+  mdc-theme-background: "#0b060d"
+
+  mdc-filled-text-field-container-color: "#120914"
+  mdc-filled-text-field-input-text-color: "var(--cyan-color)"
+  mdc-filled-text-field-label-text-color: "var(--red-color)"
+  mdc-filled-text-field-hover-label-text-color: "var(--cyan-color)"
+  mdc-filled-text-field-focus-label-text-color: "var(--cyan-color)"
+  mdc-filled-text-field-active-indicator-color: "var(--dark-red-color)"
+  mdc-filled-text-field-hover-active-indicator-color: "var(--cyan-color)"
+  mdc-filled-text-field-focus-active-indicator-color: "var(--cyan-color)"
+  mdc-filled-text-field-disabled-container-color: "#1a111c"
+  mdc-filled-text-field-disabled-input-text-color: "#6c536f"
+
+  mdc-outlined-text-field-container-color: "#120914"
+  mdc-outlined-text-field-input-text-color: "var(--cyan-color)"
+  mdc-outlined-text-field-label-text-color: "var(--red-color)"
+  mdc-outlined-text-field-hover-label-text-color: "var(--cyan-color)"
+  mdc-outlined-text-field-focus-label-text-color: "var(--cyan-color)"
+  mdc-outlined-text-field-outline-color: "var(--dark-red-color)"
+  mdc-outlined-text-field-hover-outline-color: "var(--cyan-color)"
+  mdc-outlined-text-field-focus-outline-color: "var(--cyan-color)"
+  mdc-outlined-text-field-disabled-outline-color: "#38233b"
+
+  md-filled-text-field-container-color: "#120914"
+  md-filled-text-field-input-text-color: "var(--cyan-color)"
+  md-filled-text-field-label-text-color: "var(--red-color)"
+  md-filled-text-field-active-indicator-color: "var(--dark-red-color)"
+  md-filled-text-field-focus-active-indicator-color: "var(--cyan-color)"
+  md-outlined-text-field-container-color: "#120914"
+  md-outlined-text-field-input-text-color: "var(--cyan-color)"
+  md-outlined-text-field-label-text-color: "var(--red-color)"
+  md-outlined-text-field-outline-color: "var(--dark-red-color)"
+  md-outlined-text-field-focus-outline-color: "var(--cyan-color)"
+
+  mdc-select-fill-color: "#120914"
+  mdc-select-ink-color: "var(--cyan-color)"
+  mdc-select-label-ink-color: "var(--red-color)"
+  mdc-select-dropdown-icon-color: "var(--red-color)"
+  mdc-select-idle-line-color: "var(--dark-red-color)"
+  mdc-select-hover-line-color: "var(--cyan-color)"
+  mdc-select-focused-dropdown-icon-color: "var(--cyan-color)"
+  mdc-menu-surface-fill-color: "#120914"
+  mdc-menu-surface-container-color: "#120914"
+  md-menu-container-color: "#120914"
+  md-list-container-color: "#120914"
+
+  input-fill-color: "#120914"
+  input-ink-color: "var(--cyan-color)"
+  input-label-ink-color: "var(--red-color)"
+  input-idle-line-color: "var(--dark-red-color)"
+  input-hover-line-color: "var(--cyan-color)"
+  input-outlined-idle-border-color: "var(--dark-red-color)"
+  input-outlined-hover-border-color: "var(--cyan-color)"
+
+  ha-textfield-background-color: "#120914"
+  ha-textfield-input-color: "var(--cyan-color)"
+  ha-textfield-label-color: "var(--red-color)"
+  ha-textfield-fill-color: "#120914"
+  ha-textfield-outline-color: "var(--dark-red-color)"
+  ha-textfield-hover-outline-color: "var(--cyan-color)"
+  ha-textfield-focused-outline-color: "var(--cyan-color)"
+  ha-select-fill-color: "#120914"
+  ha-select-ink-color: "var(--cyan-color)"
+  ha-select-label-ink-color: "var(--red-color)"
+
+  paper-dialog-background-color: "#140C15"
+  paper-input-container-background-color: "#120914"
+  paper-input-container-input-color: "var(--cyan-color)"
+  paper-input-container-focus-color: "var(--cyan-color)"
+
+  # Codex HA form background fixes
+  ha-color-form-background: "#120914"
+  ha-color-form-background-hover: "#1a111c"
+  ha-color-form-background-disabled: "#140f16"
+  ha-color-border-neutral-loud: "var(--dark-red-color)"
+  ha-color-border-neutral-normal: "var(--cyan-color)"
+  ha-color-border-neutral-quiet: "#38233b"
+  ha-color-border-danger-normal: "var(--red-color)"
+  ha-color-text-primary: "var(--cyan-color)"
+  ha-color-text-secondary: "#f06b62"
+  ha-color-neutral-60: "#8f6f93"
+  wa-form-control-background-color: "#120914"
+  wa-form-control-background-color-hover: "#1a111c"
+  wa-form-control-background-color-focus: "#120914"
+  wa-form-control-background-color-disabled: "#140f16"
+  wa-form-control-input-color: "var(--cyan-color)"
+  wa-form-control-label-color: "var(--red-color)"
+  wa-form-control-border-color: "var(--dark-red-color)"
+  wa-form-control-border-color-hover: "var(--cyan-color)"
+  wa-form-control-border-color-focus: "var(--cyan-color)"
+  wa-color-surface-default: "#120914"
+  wa-color-surface-raised: "#140C15"
+  wa-color-surface-lowered: "#0b060d"
+  wa-color-neutral-fill-normal: "#120914"
+  wa-color-neutral-fill-normal-hover: "#1a111c"
+  wa-color-neutral-fill-normal-active: "#1f1422"
+
+  # Codex dropdown selected option fixes
+  ha-color-fill-neutral-quiet-resting: "#120914"
+  ha-color-fill-neutral-quiet-hover: "#1a111c"
+  ha-color-fill-neutral-quiet-active: "#241726"
+  ha-color-fill-neutral-normal-resting: "#1a111c"
+  ha-color-fill-neutral-normal-hover: "#241726"
+  ha-color-fill-neutral-normal-active: "#2d1b31"
+  ha-color-fill-primary-quiet-resting: "rgba(94,246,255,0.14)"
+  ha-color-fill-primary-quiet-hover: "rgba(94,246,255,0.20)"
+  ha-color-fill-primary-quiet-active: "rgba(94,246,255,0.28)"
+  ha-color-fill-primary-normal-resting: "rgba(94,246,255,0.22)"
+  ha-color-fill-primary-normal-hover: "rgba(94,246,255,0.30)"
+  ha-color-fill-primary-normal-active: "rgba(94,246,255,0.38)"
+  ha-color-fill-primary-loud-resting: "var(--cyan-color)"
+  ha-color-on-primary-quiet: "var(--cyan-color)"
+  ha-color-on-primary-normal: "#08040a"
+  ha-color-on-neutral-normal: "var(--cyan-color)"
+  ha-list-item-selected-background-color: "rgba(94,246,255,0.18)"
+  ha-list-item-hover-background-color: "#1a111c"
+  ha-list-item-active-background-color: "#241726"
+  mdc-list-item-selected-container-color: "rgba(94,246,255,0.18)"
+  mdc-list-item-hover-state-layer-color: "var(--cyan-color)"
+  mdc-list-item-hover-state-layer-opacity: "0.10"
+  mdc-list-item-focus-state-layer-color: "var(--cyan-color)"
+  mdc-list-item-focus-state-layer-opacity: "0.16"
+  mdc-list-item-selected-hover-state-layer-color: "var(--cyan-color)"
+  mdc-list-item-selected-focus-state-layer-color: "var(--cyan-color)"
+  mdc-list-item-label-text-color: "var(--cyan-color)"
+  mdc-list-item-supporting-text-color: "#f06b62"
+  md-list-item-container-color: "#120914"
+  md-list-item-label-text-color: "var(--cyan-color)"
+  md-list-item-supporting-text-color: "#f06b62"
+  md-list-item-hover-state-layer-color: "var(--cyan-color)"
+  md-list-item-focus-state-layer-color: "var(--cyan-color)"
+  md-list-item-pressed-state-layer-color: "var(--cyan-color)"
+  md-list-item-selected-container-color: "rgba(94,246,255,0.18)"
+  wa-color-fill-quiet: "#120914"
+  wa-color-fill-quiet-hover: "#1a111c"
+  wa-color-fill-quiet-active: "#241726"
+  wa-color-fill-normal: "#1a111c"
+  wa-color-fill-normal-hover: "#241726"
+  wa-color-fill-normal-active: "#2d1b31"
+  wa-color-fill-loud: "rgba(94,246,255,0.18)"
+  wa-color-on-quiet: "var(--cyan-color)"
+  wa-color-on-normal: "var(--cyan-color)"
+  wa-color-on-loud: "#08040a"
+  wa-color-brand-fill-quiet: "rgba(94,246,255,0.14)"
+  wa-color-brand-fill-normal: "rgba(94,246,255,0.22)"
+  wa-color-brand-fill-loud: "var(--cyan-color)"
+  wa-color-brand-on-quiet: "var(--cyan-color)"
+  wa-color-brand-on-normal: "var(--cyan-color)"
+  wa-color-brand-on-loud: "#08040a"
+  paper-item-selected_-_background-color: "rgba(94,246,255,0.18)"
+  paper-item-focused-before_-_background: "rgba(94,246,255,0.18)"
+  paper-listbox-background-color: "#120914"
+  paper-menu-background-color: "#120914"
