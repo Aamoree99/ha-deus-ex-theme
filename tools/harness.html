@@ -1,0 +1,95 @@
+<title>deus-ex-card harness</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Rajdhani:wght@500;600;700&display=swap">
+<style>
+  :root{
+    --primary-font-family:'Chakra Petch','Rajdhani',sans-serif;
+    /* theme would define these — harness supplies them like themes/deus-ex.yaml will */
+    --dx-wood-1:#1a140b; --dx-wood-2:#130d07; --dx-wood-3:#0c0805;
+    --dx-brass-lit:#EAD196; --dx-brass:#C79238; --dx-brass-deep:#6f4f22;
+    --dx-gold:#D4A93A; --dx-gold-hot:#F2C14E;
+    --dx-value:#F2E4C4; --dx-label:#9A7B44; --dx-alert:#C24E2C;
+    --dx-font-display:'Chakra Petch','Rajdhani',sans-serif;
+    --dx-font-mono:'JetBrains Mono',ui-monospace,monospace;
+  }
+  html,body{margin:0}
+  body{
+    background:
+      linear-gradient(0deg,rgba(9,7,5,.32),rgba(9,7,5,.32)),
+      center/cover no-repeat url('https://raw.githubusercontent.com/Aamoree99/ha-deus-ex-theme/main/assets/background.jpg'),
+      #0c0805;
+    min-height:100vh;
+    font-family:var(--primary-font-family);
+    padding:clamp(1rem,4vw,3rem);
+  }
+  h1{
+    font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;
+    color:#7c7358;font-weight:500;margin:0 0 1.5rem;
+  }
+  .grid{display:grid;gap:1.1rem;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));max-width:900px}
+  .log{margin-top:1.5rem;font-family:'JetBrains Mono',monospace;font-size:.66rem;color:#8a7d5c;white-space:pre-wrap}
+</style>
+
+<h1>deus-ex-card · mock hass · no HA</h1>
+<div class="grid" id="grid"></div>
+<div class="log" id="log"></div>
+
+<script type="module" src="../dist/deus-ex-card.js"></script>
+<script>
+  const HASS = {
+    states: {
+      "sensor.bedroom_temp_temperature": { entity_id:"sensor.bedroom_temp_temperature", state:"21.4",
+        attributes:{ unit_of_measurement:"°C", friendly_name:"Спальня", device_class:"temperature" } },
+      "input_boolean.cinema_mode": { entity_id:"input_boolean.cinema_mode", state:"on",
+        attributes:{ friendly_name:"Кино-режим" } },
+      "light.hallway": { entity_id:"light.hallway", state:"on",
+        attributes:{ friendly_name:"Прихожая", brightness:217 } },
+      "switch.tasmota": { entity_id:"switch.tasmota", state:"on", attributes:{ friendly_name:"Реле спальни" } },
+      "sensor.problemy_doma": { entity_id:"sensor.problemy_doma", state:"2",
+        attributes:{ friendly_name:"Проблемы дома", device_class:"problem" } },
+      "person.ilia": { entity_id:"person.ilia", state:"home", attributes:{ friendly_name:"Илья" } },
+      "climate.trv_bedroom": { entity_id:"climate.trv_bedroom", state:"heat",
+        attributes:{ friendly_name:"TRV Спальня", current_temperature:20.4, temperature:21, hvac_action:"heating" } },
+    },
+    formatEntityState(st){
+      const u = st.attributes && st.attributes.unit_of_measurement;
+      if (st.state === "on") return "Вкл";
+      if (st.state === "off") return "Выкл";
+      if (st.state === "home") return "Дома";
+      if (st.state === "heat") return "Обогрев";
+      return u ? `${st.state} ${u}` : st.state;
+    },
+    callService(d,s,data){ log(`callService ${d}.${s} ${JSON.stringify(data||{})}`); },
+  };
+
+  const log = (m)=>{ document.getElementById("log").textContent += m + "\n"; };
+
+  const CARDS = [
+    { entity:"sensor.bedroom_temp_temperature", label:"Спальня", footer:"climate.trv_bedroom", meta:"18:22", status:"climate.trv_bedroom" },
+    { entity:"input_boolean.cinema_mode", label:"Кино-режим", footer:"scene_cinema", meta:"input_boolean.cinema_mode", tap_action:{action:"toggle"} },
+    { entity:"light.hallway", label:"Прихожая", value:"85%", footer:"relay: on", meta:"WiZ" },
+    { entity:"person.ilia", label:"Присутствие", footer:"iphone_ilia", meta:"person.ilia" },
+    { entity:"sensor.problemy_doma", label:"Дом", value:"2", footer:"нужно внимание", meta:"алерт" },
+    { entity:"climate.trv_bedroom", label:"Отопление", attribute:"current_temperature", footer:"уставка 21°", meta:"climate.trv_bedroom" },
+  ];
+
+  customElements.whenDefined("deus-ex-card").then(()=>{
+    const grid = document.getElementById("grid");
+    CARDS.forEach((cfg,i)=>{
+      try{
+        const el = document.createElement("deus-ex-card");
+        el.setConfig(cfg);
+        el.hass = HASS;
+        grid.appendChild(el);
+        log(`#${i} ok — ${cfg.entity}`);
+      }catch(e){ log(`#${i} FAIL — ${e.message}`); }
+    });
+    // simulate a state change after 1.5s
+    setTimeout(()=>{
+      HASS.states["input_boolean.cinema_mode"] = {...HASS.states["input_boolean.cinema_mode"], state:"off"};
+      grid.querySelectorAll("deus-ex-card").forEach(el=> el.hass = HASS);
+      log("→ cinema_mode flipped to off, re-pushed hass");
+    },1500);
+  });
+</script>
