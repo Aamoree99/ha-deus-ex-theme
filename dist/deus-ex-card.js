@@ -513,7 +513,19 @@ class DeusExThermostat extends HTMLElement {
     const mi = () => this._moreInfo();
     this._el.mode.addEventListener("click", mi);
     this._el.mode.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); mi(); } });
-    this._el.dial.addEventListener("click", mi);
+    // hold anywhere on the card (except the +/- buttons) -> more-info
+    const card = $(".dx");
+    let hold = null, held = false;
+    card.addEventListener("pointerdown", (e) => {
+      if (e.target.closest(".steps")) return;
+      held = false;
+      hold = setTimeout(() => { held = true; mi(); }, 500);
+    });
+    const clear = () => { clearTimeout(hold); };
+    card.addEventListener("pointerup", clear);
+    card.addEventListener("pointerleave", clear);
+    card.addEventListener("pointercancel", clear);
+    this._el.dial.addEventListener("click", () => { if (!held) mi(); });
     this._built = true;
   }
 
@@ -542,7 +554,8 @@ class DeusExThermostat extends HTMLElement {
       || (a.friendly_name || this._config.entity);
 
     const modeTxt = HVAC_LABEL[st.state] || st.state;
-    const preset = a.preset_mode && a.preset_mode !== "none" ? a.preset_mode : null;
+    const pm = (a.preset_mode || "").toLowerCase();
+    const preset = pm && !["none", "off", st.state.toLowerCase()].includes(pm) ? a.preset_mode : null;
     this._el.mode.textContent = preset ? `${modeTxt} · ${preset}` : modeTxt;
     this._el.mode.classList.toggle("off", isOff);
   }
