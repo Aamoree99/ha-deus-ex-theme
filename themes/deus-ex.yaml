@@ -580,8 +580,6 @@ Deus Ex MD:
   card-mod-theme: Deus Ex MD
 
   card-mod-root: |
-    @import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Rajdhani:wght@500;600;700&display=swap');
-
     ha-button-menu,
     mwc-menu,
     paper-dropdown-menu {
@@ -683,14 +681,21 @@ Deus Ex MD:
       ha-card:hover { transform: none; }
     }
 
-    /* Picture-based cards (floorplans, camera stills): frame fights the image,
-       so they opt out and stay flat/transparent. */
+    /* Cards whose own content owns the surface (floorplans, camera stills,
+       media artwork): the frame fights them, so they keep just the кант and
+       drop the lacquer fill. */
+    hui-picture-elements-card ha-card,
+    hui-picture-card ha-card,
+    hui-picture-glance-card ha-card,
+    hui-image-card ha-card,
+    hui-media-control-card ha-card {
+      background: var(--dx-wood-3) !important;
+    }
     hui-picture-elements-card ha-card,
     hui-picture-card ha-card,
     hui-picture-glance-card ha-card,
     hui-image-card ha-card {
       clip-path: none !important;
-      background: transparent !important;
       box-shadow: none !important;
       transform: none !important;
     }
@@ -701,6 +706,15 @@ Deus Ex MD:
       content: none !important;
       display: none !important;
     }
+    /* media-control: kill the artwork-tinted background layers */
+    hui-media-control-card $ .background,
+    hui-media-control-card $ .background .color,
+    hui-media-control-card $ ha-card .background {
+      background: var(--dx-wood-3) !important;
+      opacity: 1 !important;
+    }
+    hui-media-control-card $ .mc-info $ *,
+    hui-media-control-card $ .controls { color: var(--dx-value) !important; }
 
     /* ---- TILE text + HUD icon plate (card-mod-card is already scoped to
        the card's shadow, so NO `hui-tile-card $` prefix here) ---- */

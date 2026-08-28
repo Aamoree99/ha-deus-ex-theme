@@ -3,7 +3,20 @@
  *  eyebrow → value → footer(status dot · text · right-aligned meta).
  *  Pairs with the Deus Ex theme (reads its --dx-* vars, falls back to literals).
  */
-const VERSION = "1.1.0";
+const VERSION = "1.2.0";
+
+// Load the Deus Ex typefaces once, into <head> — avoids an @import in the theme's
+// card-mod-root (which causes a first-paint flash / blank dashboard).
+(function loadFonts() {
+  try {
+    if (document.getElementById("deus-ex-fonts")) return;
+    const l = document.createElement("link");
+    l.id = "deus-ex-fonts";
+    l.rel = "stylesheet";
+    l.href = "https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Rajdhani:wght@500;600;700&display=swap";
+    document.head.appendChild(l);
+  } catch (e) { /* fonts fall back to Rajdhani / system */ }
+})();
 
 const FALLBACK = `
 :host{
