@@ -28,11 +28,13 @@
     color:#7c7358;font-weight:500;margin:0 0 1.5rem;
   }
   .grid{display:grid;gap:1.1rem;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));max-width:900px}
+  .wide{display:grid;gap:1.1rem;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));max-width:900px;margin-top:1.1rem}
   .log{margin-top:1.5rem;font-family:'JetBrains Mono',monospace;font-size:.66rem;color:#8a7d5c;white-space:pre-wrap}
 </style>
 
 <h1>deus-ex-card · mock hass · no HA</h1>
 <div class="grid" id="grid"></div>
+<div class="wide" id="wide"></div>
 <div class="log" id="log"></div>
 
 <script type="module" src="../dist/deus-ex-card.js"></script>
@@ -50,7 +52,11 @@
         attributes:{ friendly_name:"Проблемы дома", device_class:"problem" } },
       "person.ilia": { entity_id:"person.ilia", state:"home", attributes:{ friendly_name:"Илья" } },
       "climate.trv_bedroom": { entity_id:"climate.trv_bedroom", state:"heat",
-        attributes:{ friendly_name:"TRV Спальня", current_temperature:20.4, temperature:21, hvac_action:"heating" } },
+        attributes:{ friendly_name:"TRV Спальня", current_temperature:20.4, temperature:21, hvac_action:"heating",
+          min_temp:5, max_temp:30, target_temp_step:0.5, preset_mode:"manual" } },
+      "climate.trv_living": { entity_id:"climate.trv_living", state:"off",
+        attributes:{ friendly_name:"TRV Гостиная", current_temperature:22.1, temperature:15, hvac_action:"off",
+          min_temp:5, max_temp:30, target_temp_step:0.5 } },
     },
     formatEntityState(st){
       const u = st.attributes && st.attributes.unit_of_measurement;
@@ -107,5 +113,18 @@
       grid.querySelectorAll("deus-ex-card").forEach(el=> el.hass = HASS);
       log("→ cinema_mode flipped to off, re-pushed hass");
     },1500);
+  });
+
+  customElements.whenDefined("deus-ex-thermostat").then(()=>{
+    const wide = document.getElementById("wide");
+    [{entity:"climate.trv_bedroom", name:"Спальня"}, {entity:"climate.trv_living", name:"Гостиная"}].forEach((cfg,i)=>{
+      try{
+        const el = document.createElement("deus-ex-thermostat");
+        el.setConfig(cfg);
+        el.hass = HASS;
+        wide.appendChild(el);
+        log(`thermo #${i} ok — ${cfg.entity}`);
+      }catch(e){ log(`thermo #${i} FAIL — ${e.message}`); }
+    });
   });
 </script>

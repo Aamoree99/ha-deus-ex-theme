@@ -3,7 +3,7 @@
  *  eyebrow → value → footer(status dot · text · right-aligned meta).
  *  Pairs with the Deus Ex theme (reads its --dx-* vars, falls back to literals).
  */
-const VERSION = "1.2.0";
+const VERSION = "1.3.0";
 
 // Load the Deus Ex typefaces once, into <head> — avoids an @import in the theme's
 // card-mod-root (which causes a first-paint flash / blank dashboard).
@@ -369,6 +369,188 @@ class DeusExCard extends HTMLElement {
 
 customElements.define("deus-ex-card", DeusExCard);
 
+
+/* ============================================================================
+   deus-ex-thermostat — HUD climate dial (gold arc, brass mode chip, HUD +/-)
+   ========================================================================== */
+
+const HVAC_LABEL = {
+  heat: "Обогрев", cool: "Охлаждение", auto: "Авто", "heat_cool": "Авто",
+  dry: "Осушение", fan_only: "Вентиляция", off: "Выкл",
+};
+const ACTION_LABEL = { heating: "греет", cooling: "холодит", idle: "ждёт", off: "выкл", drying: "сушит", fan: "обдув" };
+
+const T_STYLE = `
+${FALLBACK}
+:host{ display:block; }
+*{ box-sizing:border-box; }
+
+.dx{
+  position:relative; padding:1rem 1.1rem; font-family:var(--dx-font-display); color:var(--dx-value);
+  border-radius:2px; display:flex; gap:1.1rem; align-items:center; flex-wrap:wrap;
+  background:
+    repeating-linear-gradient(178deg, rgba(255,224,180,.015) 0 3px, rgba(0,0,0,0) 3px 11px, rgba(0,0,0,.03) 11px 13px, rgba(0,0,0,0) 13px 26px),
+    radial-gradient(150% 100% at 22% -20%, rgba(255,214,150,.07), rgba(255,214,150,0) 58%),
+    linear-gradient(180deg, var(--dx-wood-1) 0%, var(--dx-wood-2) 48%, var(--dx-wood-3) 100%);
+  box-shadow:
+    inset 0 0 0 1px var(--dx-brass),
+    0 1px 0 rgba(255,228,175,.06) inset, 0 -16px 26px rgba(0,0,0,.3) inset,
+    0 7px 16px rgba(0,0,0,.5), 0 1px 2px rgba(0,0,0,.6);
+  clip-path:polygon(0 9px, 9px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%);
+}
+.dx::after{
+  content:""; position:absolute; top:5px; left:5px; width:7px; height:7px; border-radius:50%;
+  background:radial-gradient(circle at 34% 30%, #F8E6B4 0%, #CE9E46 46%, #835c2c 78%, #4a361c 100%);
+  box-shadow:0 1px 1px rgba(0,0,0,.65), 0 0 0 1px rgba(0,0,0,.4);
+}
+
+.dial{ --p:0; position:relative; width:118px; height:118px; flex:none; }
+.dial-arc{
+  position:absolute; inset:0; border-radius:50%;
+  background:conic-gradient(from 225deg,
+    var(--dx-gold) 0turn calc(var(--p) * 0.75turn),
+    #3a2c14 calc(var(--p) * 0.75turn) 0.75turn,
+    transparent 0.75turn 1turn);
+  -webkit-mask:radial-gradient(circle, transparent 44px, #000 45px);
+          mask:radial-gradient(circle, transparent 44px, #000 45px);
+  filter:drop-shadow(0 0 5px rgba(212,169,58,.28));
+}
+.dial.off .dial-arc{ background:conic-gradient(from 225deg, #3a2c14 0 .75turn, transparent .75turn 1turn); filter:none; }
+.dial-face{
+  position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; pointer-events:none;
+}
+.set{ font-weight:700; font-size:1.9rem; line-height:1; color:var(--dx-value); font-variant-numeric:tabular-nums; }
+.set .u{ font-size:.5em; color:var(--dx-label); }
+.cur{ font-family:var(--dx-font-mono); font-size:.6rem; letter-spacing:.05em; text-transform:uppercase; color:var(--dx-label); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+
+.info{ display:flex; flex-direction:column; gap:.55rem; min-width:0; flex:1; }
+.name{ font-family:var(--dx-font-mono); font-weight:500; font-size:.62rem; letter-spacing:.18em; text-transform:uppercase; color:var(--dx-label); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.mode{
+  align-self:flex-start; font-family:var(--dx-font-mono); font-size:.58rem; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--dx-gold); border:1px solid var(--dx-brass-deep); padding:.22rem .55rem; cursor:pointer;
+  white-space:nowrap; max-width:100%; overflow:hidden; text-overflow:ellipsis;
+  clip-path:polygon(0 0, 100% 0, 100% calc(100% - 5px), calc(100% - 5px) 100%, 0 100%);
+}
+.mode.off{ color:var(--dx-label); }
+.steps{ display:flex; gap:.5rem; margin-top:.1rem; }
+.steps button{
+  width:38px; height:38px; flex:none; cursor:pointer; font-family:var(--dx-font-display); font-size:1.2rem; font-weight:700;
+  color:var(--dx-value); background:linear-gradient(180deg,#241a0d,#150e07); border:1px solid var(--dx-brass);
+  clip-path:polygon(0 5px, 5px 0, 100% 0, 100% calc(100% - 7px), calc(100% - 7px) 100%, 0 100%);
+  transition:background .13s, box-shadow .13s;
+}
+.steps button:hover{ background:linear-gradient(180deg,#3a2b12,#20180a); box-shadow:0 0 10px rgba(212,169,58,.3); }
+.steps button:active{ background:var(--dx-gold); color:#160f04; }
+.steps button:focus-visible{ outline:2px solid var(--dx-gold); outline-offset:2px; }
+@media (prefers-reduced-motion:reduce){ .steps button{ transition:none; } }
+`;
+
+class DeusExThermostat extends HTMLElement {
+  constructor() {
+    super();
+    this._hass = null; this._config = null; this._built = false;
+    this._root = this.attachShadow({ mode: "open" });
+  }
+
+  setConfig(config) {
+    if (!config || !config.entity || config.entity.split(".")[0] !== "climate") {
+      throw new Error("deus-ex-thermostat: `entity` must be a climate entity");
+    }
+    this._config = { name: undefined, step: undefined, ...config };
+    this._built = false;
+    this._render();
+  }
+
+  set hass(hass) { this._hass = hass; this._render(); }
+  getCardSize() { return 2; }
+  static getStubConfig() { return { entity: "climate.example" }; }
+
+  get _st() { return this._hass && this._config ? this._hass.states[this._config.entity] : null; }
+
+  _num(v, d) { const n = Number(v); return Number.isFinite(n) ? n : d; }
+
+  _setTemp(delta) {
+    const st = this._st; if (!st) return;
+    const a = st.attributes;
+    const step = this._num(this._config.step, this._num(a.target_temp_step, 0.5));
+    const min = this._num(a.min_temp, 5), max = this._num(a.max_temp, 35);
+    let t = this._num(a.temperature, this._num(a.current_temperature, 20)) + delta * step;
+    t = Math.min(max, Math.max(min, Math.round(t / step) * step));
+    this._hass.callService("climate", "set_temperature", { entity_id: this._config.entity, temperature: t });
+  }
+
+  _moreInfo() {
+    this.dispatchEvent(new CustomEvent("hass-more-info", {
+      detail: { entityId: this._config.entity }, bubbles: true, composed: true,
+    }));
+  }
+
+  _build() {
+    this._root.innerHTML = `<style>${T_STYLE}</style>
+      <div class="dx">
+        <div class="dial">
+          <div class="dial-arc"></div>
+          <div class="dial-face">
+            <div class="set"><span class="sv">--</span><span class="u">&deg;</span></div>
+          </div>
+        </div>
+        <div class="info">
+          <div class="name"></div>
+          <div class="cur"></div>
+          <div class="mode" role="button" tabindex="0"></div>
+          <div class="steps">
+            <button type="button" class="dn" aria-label="Ниже">&minus;</button>
+            <button type="button" class="up" aria-label="Выше">&plus;</button>
+          </div>
+        </div>
+      </div>`;
+    const $ = (s) => this._root.querySelector(s);
+    this._el = {
+      dial: $(".dial"), sv: $(".sv"), cur: $(".cur"), name: $(".name"), mode: $(".mode"),
+    };
+    $(".up").addEventListener("click", () => this._setTemp(+1));
+    $(".dn").addEventListener("click", () => this._setTemp(-1));
+    const mi = () => this._moreInfo();
+    this._el.mode.addEventListener("click", mi);
+    this._el.mode.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); mi(); } });
+    this._el.dial.addEventListener("click", mi);
+    this._built = true;
+  }
+
+  _render() {
+    if (!this._config) return;
+    if (!this._built) this._build();
+    const st = this._st;
+    if (!st) return;
+    const a = st.attributes;
+    const isOff = st.state === "off" || st.state === "unavailable";
+    const setpt = this._num(a.temperature, NaN);
+    const cur = this._num(a.current_temperature, NaN);
+    const min = this._num(a.min_temp, 5), max = this._num(a.max_temp, 35);
+    const p = Number.isFinite(setpt) ? Math.min(1, Math.max(0, (setpt - min) / (max - min))) : 0;
+
+    this._el.dial.style.setProperty("--p", isOff ? 0 : p.toFixed(3));
+    this._el.dial.classList.toggle("off", isOff);
+    this._el.sv.textContent = Number.isFinite(setpt) ? (Number.isInteger(setpt) ? setpt : setpt.toFixed(1)) : "--";
+
+    const action = a.hvac_action ? (ACTION_LABEL[a.hvac_action] || a.hvac_action) : null;
+    this._el.cur.textContent = Number.isFinite(cur)
+      ? `сейчас ${Number.isInteger(cur) ? cur : cur.toFixed(1)}°${action ? " · " + action : ""}`
+      : (action || "");
+
+    this._el.name.textContent = this._config.name
+      || (a.friendly_name || this._config.entity);
+
+    const modeTxt = HVAC_LABEL[st.state] || st.state;
+    const preset = a.preset_mode && a.preset_mode !== "none" ? a.preset_mode : null;
+    this._el.mode.textContent = preset ? `${modeTxt} · ${preset}` : modeTxt;
+    this._el.mode.classList.toggle("off", isOff);
+  }
+}
+
+customElements.define("deus-ex-thermostat", DeusExThermostat);
+
+
 window.customCards = window.customCards || [];
 window.customCards.push({
   type: "deus-ex-card",
@@ -377,5 +559,12 @@ window.customCards.push({
   preview: false,
   documentationURL: "https://github.com/Aamoree99/ha-deus-ex-theme",
 });
+window.customCards.push({
+  type: "deus-ex-thermostat",
+  name: "Deus Ex Thermostat",
+  description: "HUD climate dial — gold arc, brass mode chip. Part of the Deus Ex theme.",
+  preview: false,
+  documentationURL: "https://github.com/Aamoree99/ha-deus-ex-theme",
+});
 
-console.info(`%c DEUS-EX-CARD %c ${VERSION} `, "background:#C79238;color:#160f04;font-weight:700", "background:#140d07;color:#D4A93A");
+console.info(`%c DEUS-EX %c ${VERSION} %c card + thermostat `, "background:#C79238;color:#160f04;font-weight:700", "background:#140d07;color:#D4A93A", "background:#140d07;color:#9A7B44");
