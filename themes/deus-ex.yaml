@@ -606,6 +606,36 @@ Deus Ex MD:
       clip-path: polygon(0 5px, 5px 0, 100% 0, 100% calc(100% - 7px), calc(100% - 7px) 100%, 0 100%) !important;
     }
 
+    /* Frame opt-out — done from root with $ because card-mod-card can't tell
+       which card type it is in. The masked ::before кант renders as a solid
+       brass fill on media-control cards; kill it and keep a flat dark surface. */
+    hui-media-control-card $ ha-card,
+    hui-picture-elements-card $ ha-card,
+    hui-picture-card $ ha-card,
+    hui-picture-glance-card $ ha-card,
+    hui-image-card $ ha-card {
+      clip-path: none !important;
+      box-shadow: none !important;
+      transform: none !important;
+    }
+    hui-media-control-card $ ha-card::before,
+    hui-media-control-card $ ha-card::after,
+    hui-picture-elements-card $ ha-card::before,
+    hui-picture-elements-card $ ha-card::after,
+    hui-picture-card $ ha-card::before,
+    hui-picture-card $ ha-card::after,
+    hui-picture-glance-card $ ha-card::before,
+    hui-picture-glance-card $ ha-card::after,
+    hui-image-card $ ha-card::before,
+    hui-image-card $ ha-card::after {
+      display: none !important;
+    }
+    hui-media-control-card $ ha-card { background: var(--dx-wood-3) !important; border: 1px solid var(--dx-brass-deep) !important; }
+    hui-picture-elements-card $ ha-card,
+    hui-picture-card $ ha-card,
+    hui-picture-glance-card $ ha-card,
+    hui-image-card $ ha-card { background: transparent !important; }
+
     ha-label-badge {
       --label-badge-color: var(--cyan-color);
       color: var(--dark-purple-color);
@@ -681,34 +711,10 @@ Deus Ex MD:
       ha-card:hover { transform: none; }
     }
 
-    /* Cards whose own content owns the surface (floorplans, camera stills,
-       media artwork): drop the deco frame — the masked ::before кант can
-       render as a solid fill on some card types — keep a flat dark surface. */
-    hui-picture-elements-card ha-card,
-    hui-picture-card ha-card,
-    hui-picture-glance-card ha-card,
-    hui-image-card ha-card {
-      background: transparent !important;
-      clip-path: none !important;
-      box-shadow: none !important;
-      transform: none !important;
-    }
-    hui-media-control-card ha-card {
-      background: var(--dx-wood-3) !important;
-      clip-path: none !important;
-      box-shadow: none !important;
-      transform: none !important;
-      border: 1px solid var(--dx-brass-deep) !important;
-    }
-    hui-picture-elements-card ha-card::before, hui-picture-elements-card ha-card::after,
-    hui-picture-card ha-card::before, hui-picture-card ha-card::after,
-    hui-picture-glance-card ha-card::before, hui-picture-glance-card ha-card::after,
-    hui-image-card ha-card::before, hui-image-card ha-card::after,
-    hui-media-control-card ha-card::before, hui-media-control-card ha-card::after {
-      content: none !important;
-      display: none !important;
-      background: none !important;
-    }
+    /* NOTE: cards that opt out of the frame (picture / media-control) are
+       handled in card-mod-root — card-mod-card is scoped to each card's own
+       shadow, so a `hui-x-card` prefix here matches nothing. */
+
     /* media-control: the .no-image background is painted from --primary-color
        (bright gold) — override it on the card's own elements */
     .background,
