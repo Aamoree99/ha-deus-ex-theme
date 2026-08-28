@@ -670,24 +670,16 @@ Deus Ex MD:
           rgba(0,0,0,.03) 11px 13px, rgba(0,0,0,0) 13px 26px),
         radial-gradient(150% 100% at 22% -20%, rgba(255,214,150,.07), rgba(255,214,150,0) 58%),
         linear-gradient(180deg, var(--dx-wood-1) 0%, var(--dx-wood-2) 48%, var(--dx-wood-3) 100%);
+      /* brass кант via an inset ring — follows the clip-path shape and can
+         never render as a solid fill (unlike a masked pseudo-element) */
       box-shadow:
+        inset 0 0 0 1px var(--dx-brass),
         0 1px 0 rgba(255,228,175,.06) inset,
         0 -16px 26px rgba(0,0,0,.30) inset,
         0 7px 16px rgba(0,0,0,.50),
         0 1px 2px rgba(0,0,0,.60);
       clip-path: polygon(0 9px, 9px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%);
       transition: box-shadow 180ms ease, transform 180ms ease;
-    }
-    ha-card:before { /* brass hairline follows the cut corners */
-      content: '';
-      position: absolute; inset: 0; padding: 1px; border-radius: 2px;
-      clip-path: polygon(0 9px, 9px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%);
-      background: linear-gradient(138deg, var(--dx-brass-lit) 0%, var(--dx-brass) 34%, var(--dx-brass-deep) 78%, #402d14 100%);
-      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
-      pointer-events: none;
-      z-index: 0;
     }
     ha-card:after { /* заклёпка on the top-left notch */
       content: '';
@@ -701,10 +693,11 @@ Deus Ex MD:
     ha-card:hover {
       transform: translateY(-1px);
       box-shadow:
+        inset 0 0 0 1px var(--dx-brass-lit),
         0 1px 0 rgba(255,228,175,.10) inset,
         0 -16px 26px rgba(0,0,0,.28) inset,
         0 12px 24px rgba(0,0,0,.55),
-        0 0 0 1px rgba(234,209,150,.16);
+        0 0 8px rgba(234,209,150,.14);
     }
     @media (prefers-reduced-motion: reduce) {
       ha-card { transition: none; }
