@@ -704,9 +704,13 @@ Deus Ex MD:
       display: none !important;
       background: none !important;
     }
-    /* media-control: neutralise the artwork-tinted background layer */
-    hui-media-control-card $ .background {
+    /* media-control: the .no-image background is painted from --primary-color
+       (bright gold) — override it on the card's own elements */
+    .background,
+    .background.no-image,
+    .background .color {
       background: var(--dx-wood-3) !important;
+      background-image: none !important;
       opacity: 1 !important;
     }
 
@@ -761,12 +765,12 @@ Deus Ex MD:
     }
 
     .menu .title {
-      color: var(--cyan-color);
-      font-family: var(--primary-font-family);
-      font-weight: bold;
+      color: var(--dx-brass);
+      font-family: var(--dx-font-display);
+      font-weight: 700;
+      letter-spacing: .14em;
       margin-top: 4px;
-      text-shadow: 0 0 10px var(--cyan-color),
-                   0 0 20px var(--cyan-color);
+      text-shadow: none;
       text-transform: uppercase;
     }
 
@@ -788,14 +792,7 @@ Deus Ex MD:
     a[aria-selected=true] paper-icon-item ha-svg-icon {
       color: var(--cyan-color);
       font-weight: bold;
-      text-shadow: 0 0 10px var(--cyan-color);
-    }
-
-    paper-icon-item:hover ha-icon,
-    paper-icon-item:hover ha-svg-icon,
-    a[aria-selected=true] paper-icon-item ha-icon,
-    a[aria-selected=true] paper-icon-item ha-svg-icon {
-      animation: blink 250ms infinite alternate
+      text-shadow: none;
     }
 
     paper-icon-item {
@@ -887,13 +884,23 @@ Deus Ex MD:
 
   # ---- more-info dialog: brass frame + mono key/value ----
   card-mod-more-info: |
-    ha-dialog $ .mdc-dialog__surface {
-      border: 1px solid var(--dx-brass-deep);
-      border-radius: 2px;
-      background: linear-gradient(180deg, #16100a, var(--dx-wood-3));
+    /* opaque surface + brass edge — reach every dialog flavour HA uses */
+    ha-dialog $ .mdc-dialog__surface,
+    ha-dialog $ .content,
+    ha-md-dialog,
+    ha-md-dialog $ .container,
+    ha-md-dialog $ dialog,
+    .mdc-dialog .mdc-dialog__surface {
+      background: #17110A !important;
+      background-color: #17110A !important;
+      border: 1px solid var(--dx-brass-deep) !important;
+      border-radius: 2px !important;
     }
+    ha-dialog $ .mdc-dialog__scrim,
+    ha-md-dialog $ .scrim { background: rgba(6,4,3,.78) !important; }
     ha-dialog .mdc-dialog__title,
-    ha-dialog ha-dialog-header {
+    ha-dialog ha-dialog-header,
+    ha-md-dialog [slot="headline"] {
       font-family: var(--dx-font-display) !important;
       text-transform: uppercase;
       letter-spacing: .10em;
@@ -935,11 +942,12 @@ Deus Ex MD:
   # more-info / dialogs — surface + brass edge via vars (card-mod-more-info
   # needs card-mod >= 3.2; these apply regardless)
   ha-dialog-border-radius: "2px"
-  dialog-surface-background: "linear-gradient(180deg, #16100a, var(--dx-wood-3))"
-  ha-dialog-surface-background: "linear-gradient(180deg, #16100a, var(--dx-wood-3))"
-  mdc-dialog-container-color: "var(--dx-wood-3)"
-  md-dialog-container-color: "var(--dx-wood-3)"
-  ha-dialog-scrim-background: "rgba(6,4,3,.72)"
+  dialog-surface-background: "#17110A"
+  ha-dialog-surface-background: "#17110A"
+  mdc-dialog-container-color: "#17110A"
+  md-dialog-container-color: "#17110A"
+  ha-dialog-scrim-background: "rgba(6,4,3,.80)"
+  mdc-dialog-scrim-color: "rgba(6,4,3,.80)"
 
   # Codex input readability fixes
   ha-textfield-ink-color: "var(--cyan-color)"
