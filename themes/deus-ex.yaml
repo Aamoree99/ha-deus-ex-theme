@@ -696,6 +696,18 @@ Deus Ex MD:
        handled in card-mod-root — card-mod-card is scoped to each card's own
        shadow, so a `hui-x-card` prefix here matches nothing. */
 
+    /* media-control: force readable text on the dark surface (HA picks a
+       dark foreground when it thinks the artwork/primary colour is light) */
+    .mc-info, .mc-info *, .title, .app-name, .source, .mc-header,
+    .controls, .controls *, ha-icon-button, .current-progress {
+      color: var(--dx-value) !important;
+      --mdc-theme-text-primary-on-background: var(--dx-value) !important;
+      --mdc-theme-text-secondary-on-background: var(--dx-label) !important;
+      --primary-text-color: var(--dx-value) !important;
+      --secondary-text-color: var(--dx-label) !important;
+    }
+    .mc-info .source, .mc-info .app-name, .no-progress .source { color: var(--dx-label) !important; }
+
 
     /* ---- TILE text + HUD icon plate (card-mod-card is already scoped to
        the card's shadow, so NO `hui-tile-card $` prefix here) ---- */
