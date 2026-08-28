@@ -577,7 +577,7 @@ Deus Ex MD:
   warning-color: ""
 
   # card-mod
-  card-mod-theme: deus-ex
+  card-mod-theme: Deus Ex MD
 
   card-mod-root: |
     @import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Rajdhani:wght@500;600;700&display=swap');
