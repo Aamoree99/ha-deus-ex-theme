@@ -623,11 +623,6 @@ Deus Ex MD:
     hui-picture-glance-card $ ha-card::after,
     hui-image-card $ ha-card::after { display: none !important; }
 
-    /* ---- Responsive grids: reflow columns to fit width (PC + tablet) ---- */
-    hui-grid-card $ #root {
-      grid-template-columns: repeat(auto-fit, minmax(148px, 1fr)) !important;
-    }
-
     ha-label-badge {
       --label-badge-color: var(--cyan-color);
       color: var(--dark-purple-color);
@@ -694,6 +689,13 @@ Deus Ex MD:
     @media (prefers-reduced-motion: reduce) {
       ha-card { transition: none; }
       ha-card:hover { transform: none; }
+    }
+
+    /* Responsive grids — card-mod-card is injected into hui-grid-card's shadow,
+       and its #root is a direct child there (no ha-card wrapper). Reflow the
+       fixed column count to fit width so tiles don't shrink on tablets. */
+    #root {
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)) !important;
     }
 
     /* NOTE: cards that opt out of the frame (picture / media-control) are
