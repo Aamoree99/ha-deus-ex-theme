@@ -589,31 +589,7 @@ Deus Ex MD:
       clip-path: none !important;
     }
 
-    /* ---- Deus Ex typography: mono-caps labels, condensed values ---- */
-    hui-tile-card,
-    hui-glance-card,
-    hui-entities-card,
-    hui-sensor-card {
-      --ha-card-header-font-family: var(--dx-font-display);
-    }
-    hui-tile-card $ .primary,
-    hui-tile-card $ span[slot="primary"] {
-      font-family: var(--dx-font-display) !important;
-      font-weight: 600;
-      letter-spacing: .03em;
-      color: var(--dx-value);
-    }
-    hui-tile-card $ span[slot="secondary"],
-    hui-tile-card $ span[slot="secondary"] state-display,
-    hui-tile-card $ span[slot="secondary"] state-badge {
-      font-family: var(--dx-font-mono) !important;
-      font-size: 10.5px !important;
-      font-weight: 500;
-      letter-spacing: .11em;
-      text-transform: uppercase;
-      color: var(--dx-label) !important;
-    }
-    /* section / heading titles */
+    /* section / heading titles (root-level: these live outside card shadows) */
     hui-heading $ .content .heading,
     h1.card-header, .card-header {
       font-family: var(--dx-font-display) !important;
@@ -621,6 +597,15 @@ Deus Ex MD:
       letter-spacing: .14em;
       color: var(--dx-gold);
       font-weight: 700;
+    }
+
+    /* tile HUD icon plate — ha-tile-icon sits in a nested shadow, reach it
+       with the full pierce chain from root */
+    hui-tile-card $ ha-tile-icon $ .container {
+      border-radius: 2px !important;
+      background: linear-gradient(180deg, #241a0d, #160f07) !important;
+      border: 1px solid var(--dx-brass-deep) !important;
+      clip-path: polygon(0 5px, 5px 0, 100% 0, 100% calc(100% - 7px), calc(100% - 7px) 100%, 0 100%) !important;
     }
 
     ha-label-badge {
@@ -717,38 +702,42 @@ Deus Ex MD:
       display: none !important;
     }
 
-    /* ---- TILE: HUD icon plate ---- */
-    hui-tile-card $ ha-tile-icon $ .container {
-      border-radius: 2px;
-      background: linear-gradient(180deg, #241a0d, #160f07) !important;
-      border: 1px solid var(--dx-brass-deep);
-      clip-path: polygon(0 5px, 5px 0, 100% 0, 100% calc(100% - 7px), calc(100% - 7px) 100%, 0 100%);
+    /* ---- TILE text + HUD icon plate (card-mod-card is already scoped to
+       the card's shadow, so NO `hui-tile-card $` prefix here) ---- */
+    [slot="primary"], .primary {
+      font-family: var(--dx-font-display) !important;
+      font-weight: 600 !important;
+      letter-spacing: .03em !important;
+      color: var(--dx-value) !important;
     }
-    hui-tile-card $ ha-tile-icon {
+    [slot="secondary"], [slot="secondary"] * {
+      font-family: var(--dx-font-mono) !important;
+      font-size: 10.5px !important;
+      font-weight: 500 !important;
+      letter-spacing: .11em !important;
+      text-transform: uppercase !important;
+      color: var(--dx-label) !important;
+    }
+    ha-tile-icon {
       --tile-icon-color: var(--dx-gold);
       --tile-icon-hover-color: var(--dx-gold-hot);
     }
-
-    /* ---- BUTTON card: HUD action ---- */
-    hui-button-card $ ha-card {
-      clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
-      background: linear-gradient(180deg, #241a0d, #150e07);
-    }
-    hui-button-card $ ha-card:hover { box-shadow: 0 0 14px rgba(212,169,58,.30); }
-
-    /* ---- mini-graph-card: gold readout ---- */
-    mini-graph-card $ ha-card {
-      --accent-color: var(--dx-gold);
+    ha-tile-icon $ .container {
+      border-radius: 2px !important;
+      background: linear-gradient(180deg, #241a0d, #160f07) !important;
+      border: 1px solid var(--dx-brass-deep) !important;
+      clip-path: polygon(0 5px, 5px 0, 100% 0, 100% calc(100% - 7px), calc(100% - 7px) 100%, 0 100%) !important;
     }
 
-    /* ---- markdown / heading card used as a section title ---- */
-    hui-markdown-card $ ha-card h1,
-    hui-markdown-card $ ha-card h2 {
+    /* ---- markdown card headings (content is in the card shadow) ---- */
+    ha-card h1, ha-card h2 {
       font-family: var(--dx-font-display);
       text-transform: uppercase;
-      letter-spacing: .14em;
+      letter-spacing: .12em;
       color: var(--dx-gold);
     }
+    /* mini-graph-card picks its accent from --accent-color */
+    ha-card { --accent-color: var(--dx-gold); }
 
   card-mod-sidebar: |
     @-webkit-keyframes blink {
@@ -930,8 +919,8 @@ Deus Ex MD:
 
   # thermostat / climate circular dial
   control-circular-slider-color: "var(--dx-gold)"
-  control-circular-slider-background: "var(--dx-wood-1)"
-  control-circular-slider-background-opacity: "1"
+  control-circular-slider-background: "#3A2C14"
+  control-circular-slider-background-opacity: "0.9"
   control-circular-slider-low-color: "var(--dx-brass)"
   control-circular-slider-high-color: "var(--dx-gold-hot)"
 
