@@ -708,13 +708,14 @@ Deus Ex MD:
        handled in card-mod-root — card-mod-card is scoped to each card's own
        shadow, so a `hui-x-card` prefix here matches nothing. */
 
-    /* media-control: the .no-image background is painted from --primary-color
-       (bright gold) — override it on the card's own elements */
+    /* media-control: .color-block / .no-img / .image are painted from
+       --primary-color (bright gold) — neutralise them to wood */
     .background,
     .background.no-image,
-    .background .color {
-      background: var(--dx-wood-3) !important;
-      background-image: none !important;
+    .color-block,
+    .no-img,
+    .image {
+      background-color: var(--dx-wood-3) !important;
       opacity: 1 !important;
     }
 
