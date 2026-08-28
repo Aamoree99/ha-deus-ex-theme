@@ -691,10 +691,9 @@ Deus Ex MD:
       ha-card:hover { transform: none; }
     }
 
-    /* Responsive grids — card-mod-card is injected into hui-grid-card's shadow,
-       and its #root is a direct child there (no ha-card wrapper). Reflow the
+    /* Responsive grids — scoped to hui-grid-card only via :host(). Reflow the
        fixed column count to fit width so tiles don't shrink on tablets. */
-    #root {
+    :host(hui-grid-card) #root {
       grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)) !important;
     }
 
