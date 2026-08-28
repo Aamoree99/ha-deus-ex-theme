@@ -687,7 +687,12 @@ Deus Ex MD:
     hui-picture-elements-card ha-card,
     hui-picture-card ha-card,
     hui-picture-glance-card ha-card,
-    hui-image-card ha-card,
+    hui-image-card ha-card {
+      background: transparent !important;
+      clip-path: none !important;
+      box-shadow: none !important;
+      transform: none !important;
+    }
     hui-media-control-card ha-card {
       background: var(--dx-wood-3) !important;
       clip-path: none !important;
@@ -776,10 +781,14 @@ Deus Ex MD:
       color: var(--dx-brass);
       font-family: var(--dx-font-display);
       font-weight: 700;
-      letter-spacing: .14em;
+      font-size: 1rem;
+      letter-spacing: .04em;
       margin-top: 4px;
       text-shadow: none;
       text-transform: uppercase;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .menu ha-icon-button {
