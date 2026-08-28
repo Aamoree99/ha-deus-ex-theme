@@ -682,39 +682,33 @@ Deus Ex MD:
     }
 
     /* Cards whose own content owns the surface (floorplans, camera stills,
-       media artwork): the frame fights them, so they keep just the кант and
-       drop the lacquer fill. */
+       media artwork): drop the deco frame — the masked ::before кант can
+       render as a solid fill on some card types — keep a flat dark surface. */
     hui-picture-elements-card ha-card,
     hui-picture-card ha-card,
     hui-picture-glance-card ha-card,
     hui-image-card ha-card,
     hui-media-control-card ha-card {
       background: var(--dx-wood-3) !important;
-    }
-    hui-picture-elements-card ha-card,
-    hui-picture-card ha-card,
-    hui-picture-glance-card ha-card,
-    hui-image-card ha-card {
       clip-path: none !important;
       box-shadow: none !important;
       transform: none !important;
+      border: 1px solid var(--dx-brass-deep) !important;
     }
-    hui-picture-elements-card ha-card:before, hui-picture-elements-card ha-card:after,
-    hui-picture-card ha-card:before, hui-picture-card ha-card:after,
-    hui-picture-glance-card ha-card:before, hui-picture-glance-card ha-card:after,
-    hui-image-card ha-card:before, hui-image-card ha-card:after {
+    hui-picture-elements-card ha-card::before, hui-picture-elements-card ha-card::after,
+    hui-picture-card ha-card::before, hui-picture-card ha-card::after,
+    hui-picture-glance-card ha-card::before, hui-picture-glance-card ha-card::after,
+    hui-image-card ha-card::before, hui-image-card ha-card::after,
+    hui-media-control-card ha-card::before, hui-media-control-card ha-card::after {
       content: none !important;
       display: none !important;
+      background: none !important;
     }
-    /* media-control: kill the artwork-tinted background layers */
-    hui-media-control-card $ .background,
-    hui-media-control-card $ .background .color,
-    hui-media-control-card $ ha-card .background {
+    /* media-control: neutralise the artwork-tinted background layer */
+    hui-media-control-card $ .background {
       background: var(--dx-wood-3) !important;
       opacity: 1 !important;
     }
-    hui-media-control-card $ .mc-info $ *,
-    hui-media-control-card $ .controls { color: var(--dx-value) !important; }
 
     /* ---- TILE text + HUD icon plate (card-mod-card is already scoped to
        the card's shadow, so NO `hui-tile-card $` prefix here) ---- */
