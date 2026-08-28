@@ -33,7 +33,7 @@ Used on the **Дом Beta** floorplan dashboard.
      themes: !include_dir_merge_named themes
    ```
 3. Restart HA (or **Developer Tools → YAML → Reload Themes**).
-4. Pick **Deus Ex** in your profile, or set it per‑dashboard with `theme: Deus Ex`.
+4. Pick **Deus Ex MD** in your profile, or set it per-dashboard with `theme: Deus Ex MD`.
 
 ### HACS (custom repository)
 Add `https://github.com/Aamoree99/ha-deus-ex-theme` as a **Theme** custom repository.

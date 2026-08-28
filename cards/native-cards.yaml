@@ -1,6 +1,6 @@
 # Native cards — these get the Deus Ex look from the theme alone.
-# No card_mod needed. Just make sure the "Deus Ex" theme is active
-# (per-dashboard `theme: Deus Ex` or in your profile).
+# No card_mod needed. Just make sure the "Deus Ex MD" theme is active
+# (per-dashboard `theme: Deus Ex MD` or in your profile).
 
 # ---- tile: HUD icon plate + gold active glow (theme-styled) ----
 type: tile

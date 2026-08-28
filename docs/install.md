@@ -13,11 +13,11 @@ for the artifact-exact hero cards). You can use the theme alone.
      themes: !include_dir_merge_named themes
    ```
 3. **Developer Tools → Actions → `frontend.reload_themes`** (no restart needed).
-4. Apply: profile → Theme → **Deus Ex**, or per-dashboard:
+4. Apply: profile → Theme → **Deus Ex MD**, or per-dashboard:
    ```yaml
    # raw dashboard config, top level
    title: Дом
-   theme: Deus Ex
+   theme: Deus Ex MD
    ```
 
 ### HACS
