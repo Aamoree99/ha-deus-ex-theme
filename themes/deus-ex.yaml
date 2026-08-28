@@ -645,13 +645,13 @@ Deus Ex MD:
         0 -16px 26px rgba(0,0,0,.30) inset,
         0 7px 16px rgba(0,0,0,.50),
         0 1px 2px rgba(0,0,0,.60);
-      clip-path: polygon(0 11px, 11px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%);
+      clip-path: polygon(0 9px, 9px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%);
       transition: box-shadow 180ms ease, transform 180ms ease;
     }
     ha-card:before { /* brass hairline follows the cut corners */
       content: '';
       position: absolute; inset: 0; padding: 1px; border-radius: 2px;
-      clip-path: polygon(0 11px, 11px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%);
+      clip-path: polygon(0 9px, 9px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%);
       background: linear-gradient(138deg, var(--dx-brass-lit) 0%, var(--dx-brass) 34%, var(--dx-brass-deep) 78%, #402d14 100%);
       -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
       -webkit-mask-composite: xor;
@@ -719,16 +719,24 @@ Deus Ex MD:
     [slot="primary"], .primary {
       font-family: var(--dx-font-display) !important;
       font-weight: 600 !important;
-      letter-spacing: .03em !important;
+      letter-spacing: .02em !important;
       color: var(--dx-value) !important;
+      min-width: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     [slot="secondary"], [slot="secondary"] * {
       font-family: var(--dx-font-mono) !important;
-      font-size: 10.5px !important;
+      font-size: clamp(9px, 0.72rem, 11px) !important;
       font-weight: 500 !important;
-      letter-spacing: .11em !important;
+      letter-spacing: .06em !important;
       text-transform: uppercase !important;
       color: var(--dx-label) !important;
+      min-width: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     ha-tile-icon {
       --tile-icon-color: var(--dx-gold);
