@@ -606,10 +606,9 @@ Deus Ex MD:
       clip-path: polygon(0 5px, 5px 0, 100% 0, 100% calc(100% - 7px), calc(100% - 7px) 100%, 0 100%) !important;
     }
 
-    /* Frame opt-out — done from root with $ because card-mod-card can't tell
-       which card type it is in. The masked ::before кант renders as a solid
-       brass fill on media-control cards; kill it and keep a flat dark surface. */
-    hui-media-control-card $ ha-card,
+    /* Picture cards (floorplans, camera stills) — the image owns the surface,
+       so drop the frame entirely and stay transparent. Media-control cards
+       KEEP the кант (inset ring can't fill solid like the old masked ::before). */
     hui-picture-elements-card $ ha-card,
     hui-picture-card $ ha-card,
     hui-picture-glance-card $ ha-card,
@@ -617,24 +616,17 @@ Deus Ex MD:
       clip-path: none !important;
       box-shadow: none !important;
       transform: none !important;
+      background: transparent !important;
     }
-    hui-media-control-card $ ha-card::before,
-    hui-media-control-card $ ha-card::after,
-    hui-picture-elements-card $ ha-card::before,
     hui-picture-elements-card $ ha-card::after,
-    hui-picture-card $ ha-card::before,
     hui-picture-card $ ha-card::after,
-    hui-picture-glance-card $ ha-card::before,
     hui-picture-glance-card $ ha-card::after,
-    hui-image-card $ ha-card::before,
-    hui-image-card $ ha-card::after {
-      display: none !important;
+    hui-image-card $ ha-card::after { display: none !important; }
+
+    /* ---- Responsive grids: reflow columns to fit width (PC + tablet) ---- */
+    hui-grid-card $ #root {
+      grid-template-columns: repeat(auto-fit, minmax(148px, 1fr)) !important;
     }
-    hui-media-control-card $ ha-card { background: var(--dx-wood-3) !important; border: 1px solid var(--dx-brass-deep) !important; }
-    hui-picture-elements-card $ ha-card,
-    hui-picture-card $ ha-card,
-    hui-picture-glance-card $ ha-card,
-    hui-image-card $ ha-card { background: transparent !important; }
 
     ha-label-badge {
       --label-badge-color: var(--cyan-color);
